@@ -4,7 +4,9 @@
   "scripts": {
     "build": "remix build",
     "dev": "remix dev",
-    "start": "remix-serve build"
+    "start": "pm2 start --name=remix pnpm -- remix",
+    "stop": "pm2 stop remix",
+    "remix": "pnpm build && PORT=3005 remix-serve build"
   },
   "dependencies": {
     "@remix-run/node": "^1.6.8",
