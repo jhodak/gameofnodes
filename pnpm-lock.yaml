@@ -15,6 +15,7 @@ specifiers:
   '@remix-run/node': ^1.6.8
   '@remix-run/react': ^1.6.8
   '@remix-run/serve': ^1.6.8
+  '@tabler/icons': ^1.84.0
   '@types/react': ^18.0.15
   '@types/react-dom': ^18.0.6
   embla-carousel-react: ^7.0.1
@@ -36,6 +37,7 @@ dependencies:
   '@remix-run/node': 1.6.8_react-dom@18.2.0+react@18.2.0
   '@remix-run/react': 1.6.8_react-dom@18.2.0+react@18.2.0
   '@remix-run/serve': 1.6.8_react-dom@18.2.0+react@18.2.0
+  '@tabler/icons': 1.84.0_react-dom@18.2.0+react@18.2.0
   embla-carousel-react: 7.0.1_react@18.2.0
   react: 18.2.0
   react-dom: 18.2.0_react@18.2.0
@@ -2128,6 +2130,21 @@ packages:
     dependencies:
       defer-to-connect: 2.0.1
     dev: true
+
+  /@tabler/icons/1.84.0_react-dom@18.2.0+react@18.2.0:
+    resolution: {integrity: sha512-j1ykzKg9XPkuiK3xN8cNVZA+3+ij4gmdRlnxW8dR1QiBDEWHIU0KXIF8Wt1KDC6nR/LmjL+OMJkUdmRj/k2YtQ==}
+    peerDependencies:
+      react: ^16.x || 17.x || 18.x
+      react-dom: ^16.x || 17.x || 18.x
+    peerDependenciesMeta:
+      react:
+        optional: true
+      react-dom:
+        optional: true
+    dependencies:
+      react: 18.2.0
+      react-dom: 18.2.0_react@18.2.0
+    dev: false
 
   /@testing-library/dom/8.17.1:
     resolution: {integrity: sha512-KnH2MnJUzmFNPW6RIKfd+zf2Wue8mEKX0M3cpX6aKl5ZXrJM1/c/Pc8c2xDNYQCnJO48Sm5ITbMXgqTr3h4jxQ==}
