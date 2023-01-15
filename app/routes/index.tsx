@@ -1,16 +1,20 @@
 import { HeaderAction } from "~/components/mantine/Header"
 
-const menuLinks = [
+const links = [
   {
     link: "/nodes",
     label: "Nodes",
+  },
+  {
+    link: "/networks",
+    label: "Networks",
   },
 ]
 
 export default function Index() {
   return (
     <>
-      <HeaderAction button={false} links={menuLinks} />
+      <HeaderAction button={false} links={links} />
       <div style={{ fontFamily: "system-ui, sans-serif", lineHeight: "1.4" }}>
         <h1>Welcome to Remix</h1>
         <ul>
