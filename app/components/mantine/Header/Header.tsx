@@ -16,6 +16,9 @@ import text from "../../../text/text.json"
 const HEADER_HEIGHT = 60
 
 const useStyles = createStyles((theme) => ({
+  header: {
+    borderBottom: `2px solid ${theme.colors.yellow[5]} !important`,
+  },
   inner: {
     height: HEADER_HEIGHT,
     display: "flex",
@@ -72,7 +75,7 @@ interface HeaderActionProps {
 
 export function HeaderAction({ links, button }: HeaderActionProps) {
   const { classes } = useStyles()
-  const [opened, { toggle }] = useDisclosure(false)
+  // const [opened, { toggle }] = useDisclosure(false)
   const items = links.map((link) => {
     const menuItems = link.links?.map((item) => (
       <Menu.Item key={item.link}>{item.label}</Menu.Item>
@@ -111,25 +114,34 @@ export function HeaderAction({ links, button }: HeaderActionProps) {
   })
 
   return (
-    <Header height={HEADER_HEIGHT} sx={{ borderBottom: 0 }} mb={120}>
+    <Header
+      className={classes.header}
+      height={HEADER_HEIGHT}
+      sx={{ borderBottom: 0 }}
+      mb={120}
+    >
       <Container className={classes.inner} fluid>
         <Group>
-          <Burger
+          {/* <Burger
             opened={opened}
             onClick={toggle}
             className={classes.burger}
             size="sm"
-          />
-          <Text>{text.logo}</Text>
+          /> */}
+          <Text>
+            <a href="/" style={{ color: "inherit", textDecoration: "none" }}>
+              {text.logo}
+            </a>
+          </Text>
         </Group>
-        <Group spacing={5} className={classes.links}>
+        <Group spacing={32} className={classes.links}>
           {items}
         </Group>
-        {button && (
+        {/* {button && (
           <Button radius="xl" sx={{ height: 30 }}>
             Get early access
           </Button>
-        )}
+        )} */}
       </Container>
     </Header>
   )
