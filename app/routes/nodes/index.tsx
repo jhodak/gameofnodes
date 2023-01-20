@@ -1,18 +1,15 @@
+import { LoaderFunction, MetaFunction } from "@remix-run/node"
+import { useLoaderData, useFetcher } from "@remix-run/react"
+import { Group, Text, Card, Title, Grid } from "@mantine/core"
+import { useEffect, useState } from "react"
+import { getKlever } from "~/models/validator.server"
 import {
-  ActionFunction,
-  json,
-  LoaderFunction,
-  MetaFunction,
-  redirect,
-} from "@remix-run/node"
-import {
-  Form,
-  useLoaderData,
-  useActionData,
-  useTransition,
-} from "@remix-run/react"
-import { useEffect, useMemo, useState } from "react"
-//import styles from "~/styles/dashboard.apps.create.css"
+  determineColor,
+  determineColorPeerType,
+  determineColorPercent,
+  kleverOrder,
+} from "~/utils/utilities"
+import { KleverNodeCard } from "~/components/molecules/KleverNodeCard"
 
 export const meta: MetaFunction = () => {
   return {
@@ -24,169 +21,133 @@ export const links = () => {
   //return [{ rel: "stylesheet", href: styles }]
 }
 
-type LoaderData = {}
-
-export const loader: LoaderFunction = async ({ request }) => {
-  // const userCanCreateApp =
-  //   permissions.includes(Permissions.AppsUnlimited) ||
-  //   getRequiredClientEnvVar("GODMODE_ACCOUNTS")?.includes(user.profile.id) ||
-  //   underMaxApps()
-
-  // if (!userCanCreateApp) {
-  //   return redirect("/dashboard/apps")
-  // }
-
-  return json<LoaderData>({
-    headers: {
-      "Cache-Control": `private, max-age=${
-        process.env.NODE_ENV === "production" ? "3600" : "60"
-      }`,
-    },
-  })
+export const loader: LoaderFunction = async () => {
+  let data = getKlever()
+  return data
 }
 
-type ActionData = {
-  error: true
-  message: string
-}
+export default function NodesPage() {
+  let loaderData = useLoaderData()
+  const [data, setData] = useState(loaderData)
+  const fetcher = useFetcher()
 
-// export const action: ActionFunction = async ({ request }) => {
-//   const user = await requireUser(request)
-//   const portal = initPortalClient(user.accessToken)
-//   const formData = await request.formData()
-//   const subscription = formData.get("app-subscription")
-//   const name = formData.get("app-name")
+  useEffect(() => {
+    const interval = setInterval(() => {
+      if (document.visibilityState === "visible") {
+        fetcher.load("/nodes?index")
+      }
+    }, 3 * 1000)
+    return () => clearInterval(interval)
+  }, [])
 
-//   invariant(
-//     subscription && typeof subscription === "string",
-//     "app subscription not found",
-//   )
-//   invariant(name && typeof name === "string", "app name not found")
+  useEffect(() => {
+    if (fetcher.data) {
+      setData(fetcher.data)
+    }
+  }, [fetcher.data])
 
-//   try {
-//     const { createNewEndpoint } = await portal.createEndpoint({
-//       name,
-//     })
-
-//     if (!createNewEndpoint) {
-//       throw new Error("portal api could not create new endpoint")
-//     }
-
-//     if (subscription === PayPlanType.PayAsYouGoV0) {
-//       formData.append("app-id", createNewEndpoint.id)
-
-//       // setting to any because of a TS nnown error: https://github.com/microsoft/TypeScript/issues/19806
-//       const params = new URLSearchParams(formData as any).toString()
-//       return redirect(`/api/stripe/checkout-session?${params}`)
-//     }
-
-//     return redirect(`/dashboard/apps/${createNewEndpoint.id}`)
-//   } catch (error) {
-//     return json({
-//       error: true,
-//       message: getErrorMessage(error),
-//     })
-//   }
-// }
-
-export default function CreateApp() {
-  // const { flags } = useFeatureFlags()
-  // const { price } = useLoaderData() as LoaderData
-  // const transition = useTransition()
-  // const action = useActionData() as ActionData
-  // const [radioSelectedValue, setRadioSelectedValue] = useState(
-  //   flags.STRIPE_PAYMENT === "true"
-  //     ? PayPlanType.PayAsYouGoV0
-  //     : PayPlanType.FreetierV0
-  // )
-  // const [name, setName] = useState("")
-  // const [referral, setReferral] = useState("")
-
-  // useEffect(() => {
-  //   const rid = window.localStorage.getItem("rid")
-
-  //   if (rid) {
-  //     setReferral(rid)
-  //   }
-  // }, [])
-
-  // const priceValue = useMemo(() => {
-  //   // divide by 100 because stripe sends the value as a decimal
-  //   return Number(price?.unit_amount_decimal) / 100 || 0.00000958685
-  // }, [price])
-
-  // const tiers = [
-  //   {
-  //     name: getPlanName(PayPlanType.FreetierV0),
-  //     value: PayPlanType.FreetierV0,
-  //     active: "true",
-  //     price: 0,
-  //     priceText: "$0.00",
-  //     cardDescription:
-  //       "Access to reliable, fast infrastructure. Free up to 250k relays per day.",
-  //   },
-  //   {
-  //     name: getPlanName(PayPlanType.PayAsYouGoV0),
-  //     value: PayPlanType.PayAsYouGoV0,
-  //     active: flags.STRIPE_PAYMENT,
-  //     price: priceValue,
-  //     priceText: "pay per relay",
-  //     cardDescription:
-  //       "250k free relays per day, per app. Beyond that, pay only for what you use.",
-  //   },
-  // ]
+  type KleverData = {
+    name: string
+    metrics: {
+      klv_app_version: string
+      klv_average_block_tx_count: string
+      klv_body_blocks_size: number
+      klv_chain_id: string
+      klv_connected_nodes: number
+      klv_consensus_group_size: number
+      klv_consensus_processed_proposed_block: number
+      klv_consensus_received_proposed_block: number
+      klv_consensus_slot_state: string
+      klv_consensus_state: string
+      klv_count_accepted_blocks: number
+      klv_count_consensus: number
+      klv_count_consensus_accepted_blocks: number
+      klv_count_leader: number
+      klv_cpu_load_percent: number
+      klv_current_block_hash: string
+      klv_current_header_block_size: number
+      klv_current_slot: number
+      klv_current_slot_timestamp: number
+      klv_dev_rewards: string
+      klv_epoch_for_economics_data: number
+      klv_epoch_number: number
+      klv_highest_final_nonce: number
+      klv_inflation: string
+      klv_is_syncing: number
+      klv_last_block_tx_count: number
+      klv_latest_tag_software_version: string
+      klv_live_validator_nodes: number
+      klv_mem_heap_inuse: number
+      klv_mem_load_percent: number
+      klv_mem_stack_inuse: number
+      klv_mem_total: number
+      klv_mem_used_golang: number
+      klv_mem_used_sys: number
+      klv_min_transaction_version: number
+      klv_network_recv_bps: number
+      klv_network_recv_bps_peak: number
+      klv_network_recv_bytes_in_epoch_per_host: number
+      klv_network_recv_percent: number
+      klv_network_sent_bps: number
+      klv_network_sent_bps_peak: number
+      klv_network_sent_bytes_in_epoch_per_host: number
+      klv_network_sent_percent: number
+      klv_node_display_name: string
+      klv_node_type: string
+      klv_nonce: number
+      klv_nonce_at_epoch_start: number
+      klv_nonce_for_tps: number
+      klv_nonces_passed_in_current_epoch: number
+      klv_num_connected_peers: number
+      klv_num_connected_peers_classification: string
+      klv_num_nodes: number
+      klv_num_shard_headers_processed: number
+      klv_num_transactions_processed: number
+      klv_num_transactions_processed_tps_benchmark: number
+      klv_num_tx_block: number
+      klv_num_validators: number
+      klv_peak_tps: number
+      klv_peer_type: string
+      klv_probable_highest_nonce: number
+      klv_public_key_block_sign: string
+      klv_slot_at_epoch_start: number
+      klv_slot_duration: number
+      klv_slot_time: number
+      klv_slots_passed_in_current_epoch: number
+      klv_slots_per_epoch: number
+      klv_start_time: number
+      klv_synchronized_slot: number
+      klv_total_fees: string
+      klv_total_supply: string
+      klv_tx_pool_load: number
+    }
+  }
 
   return (
     <section className="NodeList">
-      <p>"Nodes Page"</p>
-      {/* <Card>
-        <div className="pokt-card-header">
-          <h3>Create New App</h3>
-        </div>
-        <Form method="post">
-          <input hidden name="referral-id" type="text" value={referral} />
-          <TextInput
-            label="Name"
-            name="app-name"
-            placeholder="New App Name"
-            value={name}
-            onChange={(e) => setName(e.target.value)}
-          />
-          <AppRadioCards
-            currentRadio={radioSelectedValue}
-            radioData={tiers}
-            setRadio={setRadioSelectedValue}
-          />
-          <Button
-            disabled={transition.state === "submitting" || name === ""}
-            type="submit"
-            variant="filled"
-            onClick={() => {
-              trackEvent(AmplitudeEvents.EndpointCreation)
-            }}
-          >
-            Create App
-          </Button>
-          <Text className="termsOfUseText" mb={16} mt={32} size="xs">
-            By using this application, you agree to our{" "}
-            <a
-              href="https://www.pokt.network/site-terms-of-use"
-              rel="noreferrer"
-              target="_blank"
-            >
-              Terms of Use
-            </a>
-            .
-          </Text>
-        </Form>
-        <AppPlansOverview planType={radioSelectedValue} />
-        <CalculateYourPricing price={priceValue} />
-      </Card> */}
-      {/* {action && (
-        <Card>
-          <p>{action.message}</p>
-        </Card>
-      )} */}
+      <Title order={1} align="center">
+        Validators and Nodes
+      </Title>
+      <Grid justify="center" grow>
+        {data &&
+          data.map((item: any) => {
+            if (item.chain === "Klever") {
+              return (
+                <Grid.Col
+                  span={4}
+                  key={item.name}
+                  order={kleverOrder(item.name)}
+                >
+                  <KleverNodeCard
+                    metrics={item.data.metrics}
+                    name={item.name}
+                    key={item.name}
+                  />
+                </Grid.Col>
+              )
+            }
+          })}
+      </Grid>
     </section>
   )
 }

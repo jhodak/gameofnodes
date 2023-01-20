@@ -59,14 +59,14 @@ export default function App() {
     <MantineProvider theme={theme} withGlobalStyles withNormalizeCSS>
       <html lang="en">
         <head>
+          <StylesPlaceholder />
           <Meta />
           <Links />
-          <StylesPlaceholder />
         </head>
         <body>
           <HeaderAction button={false} links={navLinks} />
           <main>
-            <Container>
+            <Container size={1280}>
               <Outlet />
             </Container>
             <ScrollRestoration />
