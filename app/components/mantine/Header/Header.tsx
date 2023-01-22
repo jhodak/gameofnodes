@@ -13,7 +13,6 @@ import { useDisclosure } from "@mantine/hooks"
 import { NavLink } from "@remix-run/react"
 import { IconChevronDown } from "@tabler/icons"
 import { HyperLink } from "~/components/atoms/Link"
-//import { theme } from "~/theme"
 
 const HEADER_HEIGHT = 60
 
@@ -66,7 +65,7 @@ const useStyles = createStyles((theme) => ({
   },
 }))
 
-interface HeaderActionProps {
+interface HeaderMenuProps {
   button: boolean
   links: {
     link: string
@@ -75,7 +74,7 @@ interface HeaderActionProps {
   }[]
 }
 
-export function HeaderMenu({ links, button }: HeaderActionProps) {
+export function HeaderMenu({ links }: HeaderMenuProps) {
   const { classes } = useStyles()
   const [opened, { toggle }] = useDisclosure(false)
 
@@ -147,7 +146,11 @@ export function HeaderMenu({ links, button }: HeaderActionProps) {
           <Text>
             <HyperLink
               to="/"
-              style={{ color: "inherit", textDecoration: "none" }}
+              style={{
+                fontWeight: "bold",
+                color: "inherit",
+                textDecoration: "none",
+              }}
             >
               <>
                 <img
