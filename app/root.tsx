@@ -8,7 +8,7 @@ import {
   ScrollRestoration,
 } from "@remix-run/react"
 import { MantineProvider, Container } from "@mantine/core"
-import { HeaderAction } from "~/components/mantine/Header"
+import { HeaderMenu } from "~/components/mantine/Header"
 import { StylesPlaceholder } from "@mantine/remix"
 import { theme } from "./theme"
 import type { LinksFunction } from "@remix-run/node" // or cloudflare/deno
@@ -64,7 +64,7 @@ export default function App() {
           <Links />
         </head>
         <body>
-          <HeaderAction button={false} links={navLinks} />
+          <HeaderMenu links={navLinks} button={false} />
           <main>
             <Container size={1280}>
               <Outlet />

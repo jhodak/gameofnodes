@@ -6,11 +6,14 @@ import {
   Container,
   Group,
   Text,
+  Burger,
+  Drawer,
 } from "@mantine/core"
+import { useDisclosure } from "@mantine/hooks"
 import { NavLink } from "@remix-run/react"
 import { IconChevronDown } from "@tabler/icons"
 import { HyperLink } from "~/components/atoms/Link"
-import text from "../../../text/text.json"
+//import { theme } from "~/theme"
 
 const HEADER_HEIGHT = 60
 
@@ -53,7 +56,7 @@ const useStyles = createStyles((theme) => ({
     "&:hover": {
       backgroundColor:
         theme.colorScheme === "dark"
-          ? theme.colors.dark[6]
+          ? theme.colors.dark[5]
           : theme.colors.gray[0],
     },
   },
@@ -72,9 +75,9 @@ interface HeaderActionProps {
   }[]
 }
 
-export function HeaderAction({ links, button }: HeaderActionProps) {
+export function HeaderMenu({ links, button }: HeaderActionProps) {
   const { classes } = useStyles()
-  // const [opened, { toggle }] = useDisclosure(false)
+  const [opened, { toggle }] = useDisclosure(false)
 
   const activeStyle = {
     textDecoration: "underline",
@@ -107,13 +110,25 @@ export function HeaderAction({ links, button }: HeaderActionProps) {
       )
     }
 
+    if (opened) {
+      return (
+        <NavLink
+          key={link.label}
+          to={link.link}
+          style={({ isActive }) => (isActive ? activeStyle : {})}
+          className={classes.link}
+          onClick={toggle}
+        >
+          {link.label}
+        </NavLink>
+      )
+    }
     return (
       <NavLink
         key={link.label}
         to={link.link}
         style={({ isActive }) => (isActive ? activeStyle : {})}
         className={classes.link}
-        // onClick={(event) => event.preventDefault()}
       >
         {link.label}
       </NavLink>
@@ -129,29 +144,36 @@ export function HeaderAction({ links, button }: HeaderActionProps) {
     >
       <Container className={classes.inner} fluid>
         <Group>
-          {/* <Burger
-            opened={opened}
-            onClick={toggle}
-            className={classes.burger}
-            size="sm"
-          /> */}
           <Text>
             <HyperLink
-              href="/"
+              to="/"
               style={{ color: "inherit", textDecoration: "none" }}
             >
-              {text.logo}
+              <>
+                <img
+                  src="/crown.svg"
+                  width={32}
+                  style={{ marginRight: "12px" }}
+                />
+                {"Game of Nodes"}
+              </>
             </HyperLink>
           </Text>
         </Group>
+        <Burger
+          opened={opened}
+          onClick={toggle}
+          className={classes.burger}
+          size="sm"
+        />
         <Group spacing={16} className={classes.links}>
           {items}
         </Group>
-        {/* {button && (
-          <Button radius="xl" sx={{ height: 30 }}>
-            Get early access
-          </Button>
-        )} */}
+        {opened && (
+          <Drawer opened={opened} onClose={toggle} size={"100%"} padding="lg">
+            <div style={{ width: "100%" }}>{items}</div>
+          </Drawer>
+        )}
       </Container>
     </Header>
   )
