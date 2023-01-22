@@ -5,12 +5,11 @@ import {
   Header,
   Container,
   Group,
-  Button,
-  Burger,
   Text,
 } from "@mantine/core"
-import { useDisclosure } from "@mantine/hooks"
+import { NavLink } from "@remix-run/react"
 import { IconChevronDown } from "@tabler/icons"
+import { HyperLink } from "~/components/atoms/Link"
 import text from "../../../text/text.json"
 
 const HEADER_HEIGHT = 60
@@ -76,6 +75,12 @@ interface HeaderActionProps {
 export function HeaderAction({ links, button }: HeaderActionProps) {
   const { classes } = useStyles()
   // const [opened, { toggle }] = useDisclosure(false)
+
+  const activeStyle = {
+    textDecoration: "underline",
+    fontWeight: "bold",
+  }
+
   const items = links.map((link) => {
     const menuItems = link.links?.map((item) => (
       <Menu.Item key={item.link}>{item.label}</Menu.Item>
@@ -85,16 +90,17 @@ export function HeaderAction({ links, button }: HeaderActionProps) {
       return (
         <Menu key={link.label} trigger="hover" exitTransitionDuration={0}>
           <Menu.Target>
-            <a
-              href={link.link}
+            <NavLink
+              to={link.link}
               className={classes.link}
+              style={({ isActive }) => (isActive ? activeStyle : {})}
               // onClick={(event) => event.preventDefault()}
             >
               <Center>
                 <span className={classes.linkLabel}>{link.label}</span>
                 <IconChevronDown size={12} stroke={1.5} />
               </Center>
-            </a>
+            </NavLink>
           </Menu.Target>
           <Menu.Dropdown>{menuItems}</Menu.Dropdown>
         </Menu>
@@ -102,14 +108,15 @@ export function HeaderAction({ links, button }: HeaderActionProps) {
     }
 
     return (
-      <a
+      <NavLink
         key={link.label}
-        href={link.link}
+        to={link.link}
+        style={({ isActive }) => (isActive ? activeStyle : {})}
         className={classes.link}
         // onClick={(event) => event.preventDefault()}
       >
         {link.label}
-      </a>
+      </NavLink>
     )
   })
 
@@ -129,12 +136,15 @@ export function HeaderAction({ links, button }: HeaderActionProps) {
             size="sm"
           /> */}
           <Text>
-            <a href="/" style={{ color: "inherit", textDecoration: "none" }}>
+            <HyperLink
+              href="/"
+              style={{ color: "inherit", textDecoration: "none" }}
+            >
               {text.logo}
-            </a>
+            </HyperLink>
           </Text>
         </Group>
-        <Group spacing={32} className={classes.links}>
+        <Group spacing={16} className={classes.links}>
           {items}
         </Group>
         {/* {button && (

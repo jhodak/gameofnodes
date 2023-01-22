@@ -91,7 +91,10 @@ export const KleverNodeCard = (data: KleverData) => {
       </Title>
       <Group position={"apart"} noWrap>
         <Text weight="bold">Node Status :</Text>
-        <Text color={determineColorPeerType(NodeData.klv_peer_type)}>
+        <Text
+          style={{ textTransform: "capitalize" }}
+          color={determineColorPeerType(NodeData.klv_peer_type)}
+        >
           {NodeData.klv_peer_type}
         </Text>
       </Group>
