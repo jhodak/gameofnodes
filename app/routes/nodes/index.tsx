@@ -11,6 +11,7 @@ import {
 } from "~/utils/utilities"
 import { KleverNodeCard } from "~/components/molecules/KleverNodeCard"
 import { IntroText } from "~/components/molecules/IntroText"
+import { pageDataType } from "~/types"
 
 export const meta: MetaFunction = () => {
   return {
@@ -47,7 +48,7 @@ export default function NodesPage() {
     }
   }, [fetcher.data])
 
-  const pageData = {
+  const pageData: pageDataType = {
     title: "Validators and Nodes",
     text: [
       `At Game of Nodes, we are proud to provide reliable and secure validators for a variety of cryptocurrency networks. Our validators are built with the latest technologies and are constantly monitored to ensure your network is running securely and reliably. With our real-time monitoring system, you can view the status and details of your validator in real-time and get peace of mind that your validators are running smoothly.`,

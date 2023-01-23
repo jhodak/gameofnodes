@@ -86,7 +86,7 @@ export const KleverNodeCard = (data: KleverData) => {
   const NodeData = data.metrics
   return (
     <Card style={{ padding: "1rem", margin: "2rem 0 0 0" }}>
-      <Title order={2} align="center">
+      <Title order={3} align="center">
         {data.name}
       </Title>
       <Group position={"apart"} noWrap>

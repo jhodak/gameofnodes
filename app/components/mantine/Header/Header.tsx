@@ -12,7 +12,7 @@ import {
 import { useDisclosure } from "@mantine/hooks"
 import { NavLink } from "@remix-run/react"
 import { IconChevronDown } from "@tabler/icons"
-import { HyperLink } from "~/components/atoms/Link"
+import { HyperLink } from "~/components/atoms/HyperLink"
 
 const HEADER_HEIGHT = 60
 
@@ -96,6 +96,7 @@ export function HeaderMenu({ links }: HeaderMenuProps) {
               to={link.link}
               className={classes.link}
               style={({ isActive }) => (isActive ? activeStyle : {})}
+              prefetch="intent"
               // onClick={(event) => event.preventDefault()}
             >
               <Center>
@@ -116,6 +117,7 @@ export function HeaderMenu({ links }: HeaderMenuProps) {
           to={link.link}
           style={({ isActive }) => (isActive ? activeStyle : {})}
           className={classes.link}
+          prefetch="intent"
           onClick={toggle}
         >
           {link.label}
@@ -128,6 +130,7 @@ export function HeaderMenu({ links }: HeaderMenuProps) {
         to={link.link}
         style={({ isActive }) => (isActive ? activeStyle : {})}
         className={classes.link}
+        prefetch="intent"
       >
         {link.label}
       </NavLink>

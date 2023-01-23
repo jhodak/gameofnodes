@@ -53,6 +53,35 @@ export const determineColor = (num: number) => {
   }
 }
 
+export const determineColorByComplexity = (
+  complexity?: "easy" | "medium" | "hard",
+  hardware?: "light" | "moderate" | "significant"
+) => {
+  if (complexity === "easy" || hardware === "light") {
+    return "green"
+  } else if (complexity === "medium" || hardware === "moderate") {
+    return "orange"
+  } else if (complexity === "hard" || hardware === "significant") {
+    return "red"
+  } else {
+    return "yellow"
+  }
+}
+
+export const determineColorByHardware = (
+  hardware: "light" | "moderate" | "significant"
+) => {
+  if (hardware === "light") {
+    return "green"
+  } else if (hardware === "moderate") {
+    return "orange"
+  } else if (hardware === "significant") {
+    return "red"
+  } else {
+    return "yellow"
+  }
+}
+
 export const determineColorPeerType = (str: string) => {
   if (str === "observer") {
     return "orange"

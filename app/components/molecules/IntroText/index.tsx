@@ -1,10 +1,8 @@
 import { Title, Text } from "@mantine/core"
+import { pageDataType } from "~/types"
 
 type introText = {
-  data: {
-    title?: string
-    text?: string[]
-  }
+  data: pageDataType
 }
 
 export const IntroText = (data: introText) => {
