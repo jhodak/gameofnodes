@@ -50,6 +50,7 @@ export default function GuidesPage() {
     stats: {
       tokenRequirement: number
       tokenSymbol: string
+      tokenCMCURL: string
       complexity: "easy" | "medium" | "hard"
       hardWareRequirement: "light" | "moderate" | "significant"
     }
@@ -68,7 +69,8 @@ export default function GuidesPage() {
       image: "/logos/klever.svg",
       stats: {
         tokenRequirement: 1500000,
-        tokenSymbol: "Klv",
+        tokenSymbol: "klv",
+        tokenCMCURL: "http",
         complexity: "medium",
         hardWareRequirement: "moderate",
       },
@@ -92,7 +94,8 @@ export default function GuidesPage() {
       image: "/logos/presearch.svg",
       stats: {
         tokenRequirement: 4000,
-        tokenSymbol: "Pre",
+        tokenSymbol: "pre",
+        tokenCMCURL: "http",
         complexity: "easy",
         hardWareRequirement: "light",
       },
@@ -134,11 +137,17 @@ export default function GuidesPage() {
                   </Group>
                 </HyperLink>
                 <Group position="apart">
-                  <Text>Token Requirement:</Text>
+                  <Text>Native Token:</Text>
                   <Text>
-                    {`${item.stats.tokenRequirement.toLocaleString()} ${
-                      item.stats.tokenSymbol
-                    }`}
+                    <HyperLink href={item.stats.tokenCMCURL} color="yellow">
+                      {item.stats.tokenSymbol.toUpperCase()}
+                    </HyperLink>
+                  </Text>
+                </Group>
+                <Group position="apart">
+                  <Text>Minimum Node Requirement:</Text>
+                  <Text>
+                    {`${item.stats.tokenRequirement.toLocaleString()} ${item.stats.tokenSymbol.toUpperCase()}`}
                   </Text>
                 </Group>
                 <Group position="apart">
@@ -147,6 +156,7 @@ export default function GuidesPage() {
                     color={determineColorByHardware(
                       item.stats.hardWareRequirement
                     )}
+                    style={{ textTransform: "capitalize" }}
                   >
                     {item.stats.hardWareRequirement}
                   </Text>
@@ -155,6 +165,7 @@ export default function GuidesPage() {
                   <Text>Complexity:</Text>
                   <Text
                     color={determineColorByComplexity(item.stats.complexity)}
+                    style={{ textTransform: "capitalize" }}
                   >
                     {item.stats.complexity}
                   </Text>
