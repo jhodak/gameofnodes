@@ -1,8 +1,9 @@
 import { LoaderFunction, MetaFunction } from "@remix-run/node"
 import { Link, useLoaderData } from "@remix-run/react"
 import { Card, Group, Title, Text } from "@mantine/core"
-import { HyperLink } from "~/components/atoms/Link"
+import { HyperLink } from "~/components/atoms/HyperLink"
 import { IntroText } from "~/components/molecules/IntroText"
+import { pageDataType } from "~/types"
 // import { useEffect, useState } from "react"
 // import { getKlever } from "~/models/validator.server"
 // import {
@@ -32,14 +33,21 @@ export const loader: LoaderFunction = async () => {
 export default function NodesPage() {
   let loaderData = useLoaderData()
 
-  const pageData = {
+  const pageData: pageDataType = {
     title: "Networks",
     text: [
       `At Game of Nodes, we are proud to offer robust and secure validators for cryptocurrency networks like Klever.finance and Presearch.io. We understand the importance of running reliable and trustworthy validators and we are constantly exploring new and promising networks to support. Our validators are built with the latest technologies and are constantly monitored to ensure your network is running securely and dependably.`,
     ],
   }
 
-  const networkData = [
+  type networkDataType = {
+    name: string
+    image: string
+    url: string
+    text: string
+  }[]
+
+  const networkData: networkDataType = [
     {
       name: "Klever",
       image: "/logos/klever.svg",

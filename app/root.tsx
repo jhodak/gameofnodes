@@ -44,6 +44,7 @@ const navLinks = [
     link: "/networks",
     label: "Networks",
   },
+  { link: "/guides", label: "Guides" },
 ]
 
 export const meta: MetaFunction = () => ({

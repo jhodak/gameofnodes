@@ -28,7 +28,7 @@ export const HyperLink = (data: links) => {
   if (data.to) {
     return (
       <Link style={data.style} className={data.className} to={data.to}>
-        {data.children}
+        <>{data.children}</>
       </Link>
     )
   } else {

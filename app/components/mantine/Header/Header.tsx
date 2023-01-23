@@ -12,7 +12,7 @@ import {
 import { useDisclosure } from "@mantine/hooks"
 import { NavLink } from "@remix-run/react"
 import { IconChevronDown } from "@tabler/icons"
-import { HyperLink } from "~/components/atoms/Link"
+import { HyperLink } from "~/components/atoms/HyperLink"
 
 const HEADER_HEIGHT = 60
 
