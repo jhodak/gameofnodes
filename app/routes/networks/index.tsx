@@ -1,18 +1,9 @@
 import { LoaderFunction, MetaFunction } from "@remix-run/node"
-import { Link, useLoaderData } from "@remix-run/react"
+import { useLoaderData } from "@remix-run/react"
 import { Card, Group, Title, Text } from "@mantine/core"
 import { HyperLink } from "~/components/atoms/HyperLink"
 import { IntroText } from "~/components/molecules/IntroText"
 import { pageDataType } from "~/types"
-// import { useEffect, useState } from "react"
-// import { getKlever } from "~/models/validator.server"
-// import {
-//   determineColor,
-//   determineColorPeerType,
-//   determineColorPercent,
-//   kleverOrder,
-// } from "~/utils/utilities"
-// import { KleverNodeCard } from "~/components/molecules/KleverNodeCard"
 
 export const meta: MetaFunction = () => {
   return {

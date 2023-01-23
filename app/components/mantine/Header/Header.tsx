@@ -96,6 +96,7 @@ export function HeaderMenu({ links }: HeaderMenuProps) {
               to={link.link}
               className={classes.link}
               style={({ isActive }) => (isActive ? activeStyle : {})}
+              prefetch="intent"
               // onClick={(event) => event.preventDefault()}
             >
               <Center>
@@ -116,6 +117,7 @@ export function HeaderMenu({ links }: HeaderMenuProps) {
           to={link.link}
           style={({ isActive }) => (isActive ? activeStyle : {})}
           className={classes.link}
+          prefetch="intent"
           onClick={toggle}
         >
           {link.label}
@@ -128,6 +130,7 @@ export function HeaderMenu({ links }: HeaderMenuProps) {
         to={link.link}
         style={({ isActive }) => (isActive ? activeStyle : {})}
         className={classes.link}
+        prefetch="intent"
       >
         {link.label}
       </NavLink>

@@ -4,6 +4,10 @@ import { Card, Group, Title, Text, Grid } from "@mantine/core"
 import { HyperLink } from "~/components/atoms/HyperLink"
 import { IntroText } from "~/components/molecules/IntroText"
 import { pageDataType } from "~/types"
+import {
+  determineColorByComplexity,
+  determineColorByHardware,
+} from "~/utils/utilities"
 // import { useEffect, useState } from "react"
 // import { getKlever } from "~/models/validator.server"
 // import {
@@ -45,11 +49,13 @@ export default function GuidesPage() {
     image: string
     stats: {
       tokenRequirement: number
+      tokenSymbol: string
       complexity: "easy" | "medium" | "hard"
       hardWareRequirement: "light" | "moderate" | "significant"
     }
     guides: {
       name: string
+      displayURL: string
       url: string
     }[]
     url: string
@@ -62,10 +68,22 @@ export default function GuidesPage() {
       image: "/logos/klever.svg",
       stats: {
         tokenRequirement: 1500000,
+        tokenSymbol: "Klv",
         complexity: "medium",
         hardWareRequirement: "moderate",
       },
-      guides: [{ name: "Official Guide", url: "https://presearch.io" }],
+      guides: [
+        {
+          name: "Official Documentation",
+          displayURL: "https://docs.klever.finance/",
+          url: "https://docs.klever.finance/klever-blockchain-node-operations/how-to-run-a-node",
+        },
+        {
+          name: "Best Complete Guide",
+          displayURL: "https://www.thekuberoom.com/",
+          url: "https://www.thekuberoom.com/node-setup/",
+        },
+      ],
       url: "https://klever.finance/",
       text: `Klever is a cutting-edge blockchain platform that is designed to meet the needs of developers and businesses. Our platform is built on a robust and secure infrastructure that is designed to support the development and deployment of decentralized applications and smart contracts.`,
     },
@@ -74,17 +92,24 @@ export default function GuidesPage() {
       image: "/logos/presearch.svg",
       stats: {
         tokenRequirement: 4000,
+        tokenSymbol: "Pre",
         complexity: "easy",
         hardWareRequirement: "light",
       },
-      guides: [{ name: "Official Guide", url: "https://presearch.io" }],
+      guides: [
+        {
+          name: "Official Documentation",
+          displayURL: "https://docs.presearch.io/",
+          url: "https://docs.presearch.io/nodes/setup",
+        },
+      ],
       url: "https://presearch.io/",
       text: `Presearch is a community-powered, decentralized search engine that provides better results while protecting your privacy and rewarding you when you search.`,
     },
   ]
 
   return (
-    <section className="NetworkList">
+    <section className="Guides">
       <IntroText data={pageData} />
       <Grid>
         {guidesData.map((item) => {
@@ -96,11 +121,6 @@ export default function GuidesPage() {
                   style={{
                     color: "inherit",
                     textDecoration: "none",
-                    display: "flex",
-                    flexWrap: "nowrap",
-                    alignItems: "center",
-                    justifyItems: "end",
-                    width: "100%",
                   }}
                 >
                   <Group position="left" noWrap spacing="xs">
@@ -113,9 +133,44 @@ export default function GuidesPage() {
                     </>
                   </Group>
                 </HyperLink>
-                <div>
-                  <Text>{item.text}</Text>
-                </div>
+                <Group position="apart">
+                  <Text>Token Requirement:</Text>
+                  <Text>
+                    {`${item.stats.tokenRequirement.toLocaleString()} ${
+                      item.stats.tokenSymbol
+                    }`}
+                  </Text>
+                </Group>
+                <Group position="apart">
+                  <Text>Hardware:</Text>
+                  <Text
+                    color={determineColorByHardware(
+                      item.stats.hardWareRequirement
+                    )}
+                  >
+                    {item.stats.hardWareRequirement}
+                  </Text>
+                </Group>
+                <Group position="apart">
+                  <Text>Complexity:</Text>
+                  <Text
+                    color={determineColorByComplexity(item.stats.complexity)}
+                  >
+                    {item.stats.complexity}
+                  </Text>
+                </Group>
+                {item.guides.map((guides) => {
+                  return (
+                    <Group position="apart">
+                      <Text>{guides.name}</Text>
+                      <Text color="yellow">
+                        <HyperLink href={guides.url}>
+                          {guides.displayURL}
+                        </HyperLink>
+                      </Text>
+                    </Group>
+                  )
+                })}
               </Card>
             </Grid.Col>
           )
