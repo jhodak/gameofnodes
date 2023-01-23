@@ -64,7 +64,9 @@ export default function NodesPage() {
             if (item.chain === "Klever") {
               return (
                 <Grid.Col
-                  span={4}
+                  md={4}
+                  sm={6}
+                  xs={12}
                   key={item.name}
                   order={kleverOrder(item.name)}
                 >

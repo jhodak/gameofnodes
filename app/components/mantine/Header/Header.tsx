@@ -60,6 +60,27 @@ const useStyles = createStyles((theme) => ({
     },
   },
 
+  mobileLink: {
+    display: "block",
+    lineHeight: 1,
+    padding: "8px 12px",
+    borderRadius: theme.radius.sm,
+    textDecoration: "none",
+    color:
+      theme.colorScheme === "dark"
+        ? theme.colors.dark[0]
+        : theme.colors.gray[7],
+    fontSize: theme.fontSizes.md,
+    fontWeight: 500,
+    marginBottom: "8px",
+    "&:hover": {
+      backgroundColor:
+        theme.colorScheme === "dark"
+          ? theme.colors.dark[5]
+          : theme.colors.gray[0],
+    },
+  },
+
   linkLabel: {
     marginRight: 5,
   },
@@ -116,7 +137,7 @@ export function HeaderMenu({ links }: HeaderMenuProps) {
           key={link.label}
           to={link.link}
           style={({ isActive }) => (isActive ? activeStyle : {})}
-          className={classes.link}
+          className={classes.mobileLink}
           prefetch="intent"
           onClick={toggle}
         >

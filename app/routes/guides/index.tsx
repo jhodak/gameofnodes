@@ -70,18 +70,18 @@ export default function GuidesPage() {
       stats: {
         tokenRequirement: 1500000,
         tokenSymbol: "klv",
-        tokenCMCURL: "http",
+        tokenCMCURL: "https://coinmarketcap.com/currencies/klever/",
         complexity: "medium",
         hardWareRequirement: "moderate",
       },
       guides: [
         {
-          name: "Official Documentation",
+          name: "Official Documentation:",
           displayURL: "https://docs.klever.finance/",
           url: "https://docs.klever.finance/klever-blockchain-node-operations/how-to-run-a-node",
         },
         {
-          name: "Best Complete Guide",
+          name: "Complete Guide:",
           displayURL: "https://www.thekuberoom.com/",
           url: "https://www.thekuberoom.com/node-setup/",
         },
@@ -95,13 +95,13 @@ export default function GuidesPage() {
       stats: {
         tokenRequirement: 4000,
         tokenSymbol: "pre",
-        tokenCMCURL: "http",
+        tokenCMCURL: "https://coinmarketcap.com/currencies/presearch/",
         complexity: "easy",
         hardWareRequirement: "light",
       },
       guides: [
         {
-          name: "Official Documentation",
+          name: "Official Documentation:",
           displayURL: "https://docs.presearch.io/",
           url: "https://docs.presearch.io/nodes/setup",
         },
@@ -117,7 +117,7 @@ export default function GuidesPage() {
       <Grid>
         {guidesData.map((item) => {
           return (
-            <Grid.Col span={6}>
+            <Grid.Col md={6} sm={12} xs={12}>
               <Card style={{ marginTop: "2rem" }}>
                 <HyperLink
                   href={item.url}
@@ -127,13 +127,11 @@ export default function GuidesPage() {
                   }}
                 >
                   <Group position="left" noWrap spacing="xs">
-                    <>
-                      <img
-                        style={{ width: "32px", marginRight: "1rem" }}
-                        src={item.image}
-                      />
-                      <Title order={2}>{item.name}</Title>
-                    </>
+                    <img
+                      style={{ width: "32px", marginRight: "1rem" }}
+                      src={item.image}
+                    />
+                    <Title order={2}>{item.name}</Title>
                   </Group>
                 </HyperLink>
                 <Group position="apart">
