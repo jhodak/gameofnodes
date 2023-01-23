@@ -70,7 +70,7 @@ export default function GuidesPage() {
       stats: {
         tokenRequirement: 1500000,
         tokenSymbol: "klv",
-        tokenCMCURL: "http",
+        tokenCMCURL: "https://coinmarketcap.com/currencies/klever/",
         complexity: "medium",
         hardWareRequirement: "moderate",
       },
@@ -95,7 +95,7 @@ export default function GuidesPage() {
       stats: {
         tokenRequirement: 4000,
         tokenSymbol: "pre",
-        tokenCMCURL: "http",
+        tokenCMCURL: "https://coinmarketcap.com/currencies/presearch/",
         complexity: "easy",
         hardWareRequirement: "light",
       },
