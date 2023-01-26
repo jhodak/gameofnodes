@@ -17,12 +17,12 @@ export const nodeList = [
   {
     name: "Arya Stark",
     chain: "Klever",
-    ip: "http://192.168.3.202:8080/node/status",
+    ip: "http://192.168.3.203:8080/node/status",
   },
   {
     name: "Bran Stark",
     chain: "Klever",
-    ip: "http://192.168.3.203:8080/node/status",
+    ip: "http://192.168.3.202:8080/node/status",
   },
   // { name: "PreSearch Home", ip: "192.168.0.15:9090" },
 ]
@@ -84,7 +84,7 @@ export const determineColorByHardware = (
 
 export const determineColorPeerType = (str: string) => {
   if (str === "observer") {
-    return "orange"
+    return "blue"
   } else if (str === "eligible") {
     return "yellow"
   } else if (str === "elected") {
