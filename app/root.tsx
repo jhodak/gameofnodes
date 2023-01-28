@@ -8,7 +8,7 @@ import {
   ScrollRestoration,
 } from "@remix-run/react"
 import { MantineProvider, Container } from "@mantine/core"
-import { HeaderMenu } from "~/components/mantine/Header"
+import HeaderMenu, { links as HeaderLinks } from "~/components/mantine/Header"
 import { StylesPlaceholder } from "@mantine/remix"
 import { theme } from "./theme"
 import type { LinksFunction } from "@remix-run/node" // or cloudflare/deno
@@ -32,6 +32,7 @@ export const links: LinksFunction = () => {
       type: "image/svg+xml",
       color: "#ffcd00",
     },
+    ...HeaderLinks(),
   ]
 }
 
@@ -57,7 +58,12 @@ export const meta: MetaFunction = () => ({
 
 export default function App() {
   return (
-    <MantineProvider theme={theme} withGlobalStyles withNormalizeCSS>
+    <MantineProvider
+      theme={theme}
+      withCSSVariables
+      withGlobalStyles
+      withNormalizeCSS
+    >
       <html lang="en">
         <head>
           <StylesPlaceholder />

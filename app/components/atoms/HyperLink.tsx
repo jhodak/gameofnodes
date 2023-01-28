@@ -6,17 +6,21 @@ import { inherits } from "util"
 type links = {
   to?: string
   href?: string
+  bold?: boolean
   onClick?: () => Function
   className?: string
   children: JSX.Element | string
-  style?: CSSProperties
   color?: MantineColor
 }
 
 export const HyperLink = (data: links) => {
   if (data.href) {
     return (
-      <Text component="span" color={data.color}>
+      <Text
+        component="span"
+        color={data.color}
+        weight={data.bold ? "700" : "500"}
+      >
         <a
           style={{ color: "inherit", textDecoration: "none" }}
           className={data.className}
@@ -31,7 +35,11 @@ export const HyperLink = (data: links) => {
   }
   if (data.to) {
     return (
-      <Text component="span" color={data.color}>
+      <Text
+        component="span"
+        color={data.color}
+        weight={data.bold ? "700" : "500"}
+      >
         <Link
           style={{ color: "inherit", textDecoration: "none" }}
           className={data.className}
