@@ -4,8 +4,8 @@
   "scripts": {
     "build": "remix build",
     "dev": "remix dev",
-    "start": "pm2 start --name=remix pnpm -- remix",
-    "stop": "pm2 stop remix",
+    "start": "pnpm -- remix && pm2 start --name=remix --update-env ",
+    "stop": "pm2 stop remix && pm2 delete remix",
     "remix": "pnpm build && PORT=3005 remix-serve build"
   },
   "dependencies": {
