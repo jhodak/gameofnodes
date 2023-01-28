@@ -32,7 +32,6 @@ export const loader: LoaderFunction = async () => {
   if (cache.has("presearch")) {
     presearchData = await cache.get("presearch")
   } else {
-    console.log("fetching new presearch node data")
     presearchData = await getPresearch()
     cache.set("presearch", presearchData, 60 * 20)
   }
@@ -77,7 +76,6 @@ export default function NodesPage() {
     ],
   }
 
-  console.log(data)
   return (
     <section className="NodesPage">
       <IntroText data={pageData} />
