@@ -21,7 +21,7 @@ export const loader: LoaderFunction = async () => {
   return null
 }
 
-export default function NodesPage() {
+export default function NetworksPage() {
   let loaderData = useLoaderData()
 
   const pageData: pageDataType = {
@@ -54,11 +54,11 @@ export default function NodesPage() {
   ]
 
   return (
-    <section className="NetworkList">
+    <section className="NetworkPage">
       <IntroText data={pageData} />
       {networkData.map((item) => {
         return (
-          <Card style={{ marginTop: "2rem" }}>
+          <Card style={{ marginTop: "2rem" }} key={item.name}>
             <Group position="apart" noWrap spacing="lg">
               <HyperLink href={item.url}>
                 <img style={{ width: "64px" }} src={item.image} />

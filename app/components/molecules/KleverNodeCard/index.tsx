@@ -5,6 +5,12 @@ import {
   determineColorPercent,
 } from "~/utils/utilities"
 
+export type KleverListData = {
+  name: string
+  chain: "Klever"
+  data: KleverData
+}
+
 type KleverData = {
   name: string
   metrics: {

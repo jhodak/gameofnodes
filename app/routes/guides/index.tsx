@@ -112,12 +112,12 @@ export default function GuidesPage() {
   ]
 
   return (
-    <section className="Guides">
+    <section className="GuidesPage">
       <IntroText data={pageData} />
       <Grid>
         {guidesData.map((item) => {
           return (
-            <Grid.Col md={6} sm={12} xs={12}>
+            <Grid.Col md={6} sm={12} xs={12} key={item.name}>
               <Card style={{ marginTop: "2rem" }}>
                 <HyperLink
                   href={item.url}
@@ -170,7 +170,7 @@ export default function GuidesPage() {
                 </Group>
                 {item.guides.map((guides) => {
                   return (
-                    <Group position="apart">
+                    <Group position="apart" key={guides.url}>
                       <Text>{guides.name}</Text>
                       <Text color="yellow">
                         <HyperLink href={guides.url}>

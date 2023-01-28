@@ -1,27 +1,28 @@
 import { nodeList } from "~/utils/utilities"
 
-type KleverValidator = {
-  any: any
-}
-
 export async function getKlever() {
-  let result
-  let promises: any = []
-  // let res = await fetch(nodeList[0].ip)
-  // data.push({ ...res.json(), name: nodeList[0].name, chain: nodeList[0].chain })
+  let kleverData: any = []
   await Promise.all(
     nodeList.map(async (item) => {
       let res = await fetch(item.ip)
       let dataInner = await res.json()
-      promises.push({
+      kleverData.push({
         data: dataInner.data,
         name: item.name,
         chain: item.chain,
       })
     })
   )
-  result = await Promise.all(promises)
-  return result
+  return kleverData
+}
+
+export async function getPresearch() {
+  let key = process.env.presearchAPIKey
+  let res = await fetch(
+    `https://nodes.presearch.com/api/nodes/status/${key}?stats=true`
+  )
+  let data = res.json()
+  return data
 }
 
 export async function getKleverByIP(url: string) {

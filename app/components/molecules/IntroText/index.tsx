@@ -15,9 +15,9 @@ export const IntroText = (data: introText) => {
         </Title>
       )}
       {text &&
-        text.map((item) => {
+        text.map((item, index) => {
           return (
-            <Text component="p" fz="lg">
+            <Text component="p" fz="lg" key={index}>
               {item}
             </Text>
           )
