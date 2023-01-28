@@ -39,6 +39,18 @@ export const determineColorPercent = (num: number) => {
   }
 }
 
+export const determineColorPercentUp = (num: number) => {
+  if (num > 95) {
+    return "green"
+  } else if (num >= 75) {
+    return "orange"
+  } else if (num < 75) {
+    return "red"
+  } else {
+    return "blue"
+  }
+}
+
 export const determineColor = (num: number) => {
   if (num > 2) {
     return "red"
@@ -116,4 +128,5 @@ export const kleverOrder = (name: string) => {
   if (name === "Bran Stark") {
     return 5
   }
+  return undefined
 }
