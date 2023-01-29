@@ -17,7 +17,7 @@ import {
   PresearchListType,
   links as presearchNodeLinks,
 } from "~/components/molecules/PresearchNodeCard"
-import styles from "./styles.css"
+import styles from "~/styles/nodesStyles.css"
 
 export const meta: MetaFunction = () => {
   return {

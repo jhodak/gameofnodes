@@ -4,7 +4,7 @@ import { Card, Group, Title, Text } from "@mantine/core"
 import { HyperLink } from "~/components/atoms/HyperLink"
 import { IntroText } from "~/components/molecules/IntroText"
 import { pageDataType } from "~/types"
-import styles from "./styles.css"
+import styles from "~/styles/networksStyles.css"
 
 export const meta: MetaFunction = () => {
   return {
