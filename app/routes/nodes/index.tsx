@@ -38,7 +38,9 @@ export const loader: LoaderFunction = async () => {
   let presearchData: PresearchListType | undefined
   if (cache.has("presearch")) {
     presearchData = await cache.get("presearch")
+    console.log(cache.get("presearch"))
   } else {
+    console.log("getting presearch data")
     presearchData = await getPresearch()
     cache.set("presearch", presearchData, 60 * 20)
   }

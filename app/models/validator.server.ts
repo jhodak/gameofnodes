@@ -21,12 +21,18 @@ export async function getPresearch() {
   let res = await fetch(
     `https://nodes.presearch.com/api/nodes/status/${key}?stats=true`
   )
-  let data = res.json()
-  return data
+  if (!res.ok) {
+    throw new Error(await res.json())
+  } else {
+    return await res.json()
+  }
 }
 
 export async function getKleverByIP(url: string) {
   let res = await fetch(url)
-  let data = res.json()
-  return data
+  if (!res.ok) {
+    throw new Error(await res.json())
+  } else {
+    return await res.json()
+  }
 }
