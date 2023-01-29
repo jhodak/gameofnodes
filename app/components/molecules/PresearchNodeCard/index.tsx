@@ -5,9 +5,10 @@ import {
   LayoutData,
   links as cardGroupLinks,
 } from "../CardGroupLayout"
+import styles from "./styles.css"
 
 export const links = () => {
-  return [...cardGroupLinks()]
+  return [...cardGroupLinks(), { rel: "stylesheet", href: styles }]
 }
 
 export type PresearchListType = {
@@ -120,7 +121,7 @@ export const PresearchNodeCard = (data: PresearchItemType) => {
     },
   ]
   return (
-    <Card>
+    <Card className="presearchNodeCard">
       <Title order={3} align="center">
         {data.meta.description}
       </Title>

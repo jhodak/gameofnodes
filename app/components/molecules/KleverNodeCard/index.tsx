@@ -9,9 +9,10 @@ import {
   LayoutData,
   links as cardGroupLinks,
 } from "../CardGroupLayout"
+import styles from "./styles.css"
 
 export const links = () => {
-  return [...cardGroupLinks()]
+  return [...cardGroupLinks(), { rel: "stylesheet", href: styles }]
 }
 
 export type KleverListData = {
@@ -133,7 +134,7 @@ export const KleverNodeCard = (data: KleverData) => {
     },
   ]
   return (
-    <Card>
+    <Card className="kleverNodeCard">
       <Title order={3} align="center">
         {data.name}
       </Title>
