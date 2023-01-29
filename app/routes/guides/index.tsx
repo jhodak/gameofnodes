@@ -8,7 +8,7 @@ import {
   determineColorByComplexity,
   determineColorByHardware,
 } from "~/utils/utilities"
-import styles from "~/styles/guiesStyles.css"
+import styles from "~/styles/guidesStyles.css"
 import {
   CardGroupLayout,
   LayoutData,
