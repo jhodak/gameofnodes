@@ -8,15 +8,13 @@ import {
   determineColorByComplexity,
   determineColorByHardware,
 } from "~/utils/utilities"
-// import { useEffect, useState } from "react"
-// import { getKlever } from "~/models/validator.server"
-// import {
-//   determineColor,
-//   determineColorPeerType,
-//   determineColorPercent,
-//   kleverOrder,
-// } from "~/utils/utilities"
-// import { KleverNodeCard } from "~/components/molecules/KleverNodeCard"
+import styles from "./styles.css"
+import {
+  CardGroupLayout,
+  LayoutData,
+  LayoutListData,
+  links as cardGroupLinks,
+} from "~/components/molecules/CardGroupLayout"
 
 export const meta: MetaFunction = () => {
   return {
@@ -25,7 +23,7 @@ export const meta: MetaFunction = () => {
 }
 
 export const links = () => {
-  //return [{ rel: "stylesheet", href: styles }]
+  return [...cardGroupLinks(), { rel: "stylesheet", href: styles }]
 }
 
 export const loader: LoaderFunction = async () => {
@@ -55,9 +53,10 @@ export default function GuidesPage() {
       hardWareRequirement: "light" | "moderate" | "significant"
     }
     guides: {
-      name: string
-      displayURL: string
+      text: string
+      value: string
       url: string
+      color: "yellow"
     }[]
     url: string
     text: string
@@ -76,14 +75,16 @@ export default function GuidesPage() {
       },
       guides: [
         {
-          name: "Official Documentation:",
-          displayURL: "https://docs.klever.finance/",
+          text: "Official Documentation:",
+          value: "https://docs.klever.finance/",
           url: "https://docs.klever.finance/klever-blockchain-node-operations/how-to-run-a-node",
+          color: "yellow",
         },
         {
-          name: "Complete Guide:",
-          displayURL: "https://www.thekuberoom.com/",
+          text: "Complete Guide:",
+          value: "https://www.thekuberoom.com/",
           url: "https://www.thekuberoom.com/node-setup/",
+          color: "yellow",
         },
       ],
       url: "https://klever.finance/",
@@ -101,9 +102,10 @@ export default function GuidesPage() {
       },
       guides: [
         {
-          name: "Official Documentation:",
-          displayURL: "https://docs.presearch.io/",
+          text: "Official Documentation:",
+          value: "https://docs.presearch.io/",
           url: "https://docs.presearch.io/nodes/setup",
+          color: "yellow",
         },
       ],
       url: "https://presearch.io/",
@@ -116,68 +118,60 @@ export default function GuidesPage() {
       <IntroText data={pageData} />
       <Grid>
         {guidesData.map((item) => {
+          const layout: LayoutListData = [
+            {
+              text: "Native Token :",
+              value: item.stats.tokenSymbol.toUpperCase(),
+              url: item.stats.tokenCMCURL,
+              color: "yellow",
+            },
+            {
+              text: "Minimum Node Requirement :",
+              value: `${item.stats.tokenRequirement.toLocaleString()} ${item.stats.tokenSymbol.toUpperCase()}`,
+            },
+            {
+              text: "Hardware :",
+              value: item.stats.hardWareRequirement,
+              color: determineColorByHardware(item.stats.hardWareRequirement),
+            },
+            {
+              text: "Complexity :",
+              value: item.stats.complexity,
+              color: determineColorByComplexity(item.stats.complexity),
+            },
+          ]
           return (
             <Grid.Col md={6} sm={12} xs={12} key={item.name}>
-              <Card style={{ marginTop: "2rem" }}>
-                <HyperLink
-                  href={item.url}
-                  style={{
-                    color: "inherit",
-                    textDecoration: "none",
-                  }}
-                >
-                  <Group position="left" noWrap spacing="xs">
-                    <img
-                      style={{ width: "32px", marginRight: "1rem" }}
-                      src={item.image}
-                    />
+              <Card className="card">
+                <HyperLink href={item.url}>
+                  <Group
+                    className="titleLink"
+                    position="left"
+                    noWrap
+                    spacing="xs"
+                  >
+                    <img src={item.image} />
                     <Title order={2}>{item.name}</Title>
                   </Group>
                 </HyperLink>
-                <Group position="apart">
-                  <Text>Native Token:</Text>
-                  <Text>
-                    <HyperLink href={item.stats.tokenCMCURL} color="yellow">
-                      {item.stats.tokenSymbol.toUpperCase()}
-                    </HyperLink>
-                  </Text>
-                </Group>
-                <Group position="apart">
-                  <Text>Minimum Node Requirement:</Text>
-                  <Text>
-                    {`${item.stats.tokenRequirement.toLocaleString()} ${item.stats.tokenSymbol.toUpperCase()}`}
-                  </Text>
-                </Group>
-                <Group position="apart">
-                  <Text>Hardware:</Text>
-                  <Text
-                    color={determineColorByHardware(
-                      item.stats.hardWareRequirement
-                    )}
-                    style={{ textTransform: "capitalize" }}
-                  >
-                    {item.stats.hardWareRequirement}
-                  </Text>
-                </Group>
-                <Group position="apart">
-                  <Text>Complexity:</Text>
-                  <Text
-                    color={determineColorByComplexity(item.stats.complexity)}
-                    style={{ textTransform: "capitalize" }}
-                  >
-                    {item.stats.complexity}
-                  </Text>
-                </Group>
+                {layout.map((item: LayoutData) => {
+                  return (
+                    <CardGroupLayout
+                      text={item.text}
+                      url={item.url}
+                      value={item.value}
+                      color={item.color}
+                    />
+                  )
+                })}
                 {item.guides.map((guides) => {
                   return (
-                    <Group position="apart" key={guides.url}>
-                      <Text>{guides.name}</Text>
-                      <Text color="yellow">
-                        <HyperLink href={guides.url}>
-                          {guides.displayURL}
-                        </HyperLink>
-                      </Text>
-                    </Group>
+                    <CardGroupLayout
+                      text={guides.text}
+                      url={guides.url}
+                      value={guides.value}
+                      color={guides.color}
+                    />
                   )
                 })}
               </Card>

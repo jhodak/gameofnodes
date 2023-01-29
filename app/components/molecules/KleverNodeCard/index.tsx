@@ -1,9 +1,19 @@
-import { Card, Group, Title, Text } from "@mantine/core"
+import { Card, Title } from "@mantine/core"
 import {
   determineColor,
   determineColorPeerType,
   determineColorPercent,
 } from "~/utils/utilities"
+import {
+  CardGroupLayout,
+  LayoutData,
+  links as cardGroupLinks,
+} from "../CardGroupLayout"
+import styles from "./styles.css"
+
+export const links = () => {
+  return [...cardGroupLinks(), { rel: "stylesheet", href: styles }]
+}
 
 export type KleverListData = {
   name: string
@@ -90,50 +100,54 @@ type KleverData = {
 
 export const KleverNodeCard = (data: KleverData) => {
   const NodeData = data.metrics
+  const layout = [
+    {
+      text: "Node Status :",
+      value: NodeData.klv_peer_type,
+      color: determineColorPeerType(NodeData.klv_peer_type),
+    },
+    {
+      text: "Synchronization :",
+      value:
+        NodeData.klv_current_slot - NodeData.klv_synchronized_slot < 1
+          ? "Synchronized"
+          : `${
+              NodeData.klv_current_slot - NodeData.klv_synchronized_slot
+            } Blocks behind`,
+      color: determineColor(
+        NodeData.klv_current_slot - NodeData.klv_synchronized_slot
+      ),
+    },
+    {
+      text: "Blocks Minted :",
+      value: NodeData.klv_count_leader,
+    },
+    {
+      text: "Memory % :",
+      value: +NodeData.klv_mem_load_percent,
+      color: determineColorPercent(+NodeData.klv_mem_load_percent),
+    },
+    {
+      text: "Processor % :",
+      value: +NodeData.klv_cpu_load_percent,
+      color: determineColorPercent(+NodeData.klv_cpu_load_percent),
+    },
+  ]
   return (
-    <Card style={{ padding: "1rem", margin: "2rem 0 0 0" }}>
+    <Card className="kleverNodeCard">
       <Title order={3} align="center">
         {data.name}
       </Title>
-      <Group position={"apart"} noWrap>
-        <Text weight="bold">Node Status :</Text>
-        <Text
-          style={{ textTransform: "capitalize" }}
-          color={determineColorPeerType(NodeData.klv_peer_type)}
-        >
-          {NodeData.klv_peer_type}
-        </Text>
-      </Group>
-      <Group position={"apart"} noWrap>
-        <Text weight="bold">Synchronization :</Text>
-        <Text
-          color={determineColor(
-            NodeData.klv_current_slot - NodeData.klv_synchronized_slot
-          )}
-        >
-          {NodeData.klv_current_slot - NodeData.klv_synchronized_slot < 1
-            ? "Synchronized"
-            : `${
-                NodeData.klv_current_slot - NodeData.klv_synchronized_slot
-              } Blocks behind`}
-        </Text>
-      </Group>
-      <Group position={"apart"} noWrap>
-        <Text weight="bold">Blocks Minted :</Text>
-        <Text>{NodeData.klv_count_leader}</Text>
-      </Group>
-      <Group position={"apart"} noWrap>
-        <Text weight="bold">Memory % :</Text>
-        <Text color={determineColorPercent(+NodeData.klv_mem_load_percent)}>
-          {+NodeData.klv_mem_load_percent}
-        </Text>
-      </Group>
-      <Group position={"apart"} noWrap>
-        <Text weight="bold">Processor % :</Text>
-        <Text color={determineColorPercent(+NodeData.klv_cpu_load_percent)}>
-          {+NodeData.klv_cpu_load_percent}
-        </Text>
-      </Group>
+      {layout.map((item: LayoutData) => {
+        return (
+          <CardGroupLayout
+            text={item.text}
+            url={item.url}
+            value={item.value}
+            color={item.color}
+          />
+        )
+      })}
     </Card>
   )
 }

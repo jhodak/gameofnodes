@@ -1,0 +1,12 @@
+.GuidesPage .card {
+  margin-top: 2rem;
+}
+
+.GuidesPage .card img {
+  margin-right: 0.5rem;
+  width: 32px;
+}
+
+.GuidesPage .titleLink {
+  margin-bottom: 1.5rem;
+}

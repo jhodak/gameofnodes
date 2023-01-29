@@ -4,6 +4,7 @@ import { Card, Group, Title, Text } from "@mantine/core"
 import { HyperLink } from "~/components/atoms/HyperLink"
 import { IntroText } from "~/components/molecules/IntroText"
 import { pageDataType } from "~/types"
+import styles from "./styles.css"
 
 export const meta: MetaFunction = () => {
   return {
@@ -12,7 +13,7 @@ export const meta: MetaFunction = () => {
 }
 
 export const links = () => {
-  //return [{ rel: "stylesheet", href: styles }]
+  return [{ rel: "stylesheet", href: styles }]
 }
 
 export const loader: LoaderFunction = async () => {
@@ -58,19 +59,14 @@ export default function NetworksPage() {
       <IntroText data={pageData} />
       {networkData.map((item) => {
         return (
-          <Card style={{ marginTop: "2rem" }} key={item.name}>
+          <Card className="card" key={item.name}>
             <Group position="apart" noWrap spacing="lg">
               <HyperLink href={item.url}>
-                <img style={{ width: "64px" }} src={item.image} />
+                <img src={item.image} />
               </HyperLink>
               <div>
                 <Title order={2}>
-                  <HyperLink
-                    style={{ color: "inherit", textDecoration: "inherit" }}
-                    href={item.url}
-                  >
-                    {item.name}
-                  </HyperLink>
+                  <HyperLink href={item.url}>{item.name}</HyperLink>
                 </Title>
                 <Text>{item.text}</Text>
               </div>

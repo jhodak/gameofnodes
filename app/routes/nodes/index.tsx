@@ -1,12 +1,13 @@
 import { LoaderFunction, MetaFunction } from "@remix-run/node"
 import { useLoaderData, useFetcher } from "@remix-run/react"
-import { Title, Grid, Text, Card, Group } from "@mantine/core"
+import { Title, Grid } from "@mantine/core"
 import { useEffect, useState } from "react"
 import { getKlever, getPresearch } from "~/models/validator.server"
-import { kleverOrder, determineColorPercentUp } from "~/utils/utilities"
+import { kleverOrder } from "~/utils/utilities"
 import {
   KleverNodeCard,
   KleverListData,
+  links as kleverNodeLinks,
 } from "~/components/molecules/KleverNodeCard"
 import { IntroText } from "~/components/molecules/IntroText"
 import { pageDataType } from "~/types"
@@ -14,7 +15,9 @@ import { cache } from "~/utils/db.server"
 import {
   PresearchNodeCard,
   PresearchListType,
+  links as presearchNodeLinks,
 } from "~/components/molecules/PresearchNodeCard"
+import styles from "./styles.css"
 
 export const meta: MetaFunction = () => {
   return {
@@ -23,7 +26,11 @@ export const meta: MetaFunction = () => {
 }
 
 export const links = () => {
-  //return [{ rel: "stylesheet", href: styles }]
+  return [
+    ...presearchNodeLinks(),
+    ...kleverNodeLinks(),
+    { rel: "stylesheet", href: styles },
+  ]
 }
 
 export const loader: LoaderFunction = async () => {
@@ -108,11 +115,7 @@ export default function NodesPage() {
         </Grid>
       )}
       {data.presearch && (
-        <Title
-          order={2}
-          align="center"
-          style={{ marginTop: "4rem", marginBottom: "2rem" }}
-        >
+        <Title order={2} align="center">
           Presearch Nodes
         </Title>
       )}
