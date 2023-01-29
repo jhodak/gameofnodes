@@ -9,7 +9,7 @@ type links = {
   bold?: boolean
   onClick?: () => Function
   className?: string
-  children: JSX.Element | string
+  children: JSX.Element | string | number
   color?: MantineColor
 }
 

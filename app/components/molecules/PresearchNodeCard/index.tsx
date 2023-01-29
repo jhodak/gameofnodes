@@ -1,5 +1,14 @@
-import { Card, Group, Title, Text } from "@mantine/core"
+import { Card, Title } from "@mantine/core"
 import { determineColorPercentUp } from "~/utils/utilities"
+import {
+  CardGroupLayout,
+  LayoutData,
+  links as cardGroupLinks,
+} from "../CardGroupLayout"
+
+export const links = () => {
+  return [...cardGroupLinks()]
+}
 
 export type PresearchListType = {
   meta: {
@@ -92,35 +101,39 @@ export type PresearchItemType = {
 }
 
 export const PresearchNodeCard = (data: PresearchItemType) => {
+  const layout = [
+    {
+      text: "Status :",
+      value: data.status.connected ? "Connected" : "Disconnected",
+      color: data.status.connected ? "green" : "red",
+    },
+    { text: "Server Pool :", value: data.meta.gateway_pool },
+    {
+      text: "Uptime :",
+      value: data.period.uptime_percentage,
+      color: determineColorPercentUp(data.period.uptime_percentage),
+    },
+    { text: "Successful Requests:", value: data.period.successful_requests },
+    {
+      text: "Pre Earned:",
+      value: data.period.total_pre_earned.toFixed(2),
+    },
+  ]
   return (
     <Card>
       <Title order={3} align="center">
         {data.meta.description}
       </Title>
-      <Group position="apart">
-        <Text weight={700}>Status:</Text>
-        <Text color={data.status.connected ? "green" : "red"}>
-          {data.status.connected ? "Connected" : "Disconnected"}
-        </Text>
-      </Group>
-      <Group position="apart">
-        <Text weight={700}>Server Pool:</Text>
-        <Text>{data.meta.gateway_pool}</Text>
-      </Group>
-      <Group position="apart">
-        <Text weight={700}>Uptime:</Text>
-        <Text color={determineColorPercentUp(data.period.uptime_percentage)}>
-          {data.period.uptime_percentage}
-        </Text>
-      </Group>
-      <Group position="apart">
-        <Text weight={700}>Successful Requests:</Text>
-        <Text>{data.period.successful_requests}</Text>
-      </Group>
-      <Group position="apart">
-        <Text weight={700}>Pre Earned:</Text>
-        <Text>{data.period.total_pre_earned.toFixed(2)}</Text>
-      </Group>
+      {layout.map((item: LayoutData) => {
+        return (
+          <CardGroupLayout
+            text={item.text}
+            url={item.url}
+            value={item.value}
+            color={item.color}
+          />
+        )
+      })}
     </Card>
   )
 }
