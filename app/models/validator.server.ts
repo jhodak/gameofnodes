@@ -28,6 +28,7 @@ export async function getPresearch() {
   }
 }
 
+// Unused currently
 export async function getKleverByIP(url: string) {
   let res = await fetch(url)
   if (!res.ok) {

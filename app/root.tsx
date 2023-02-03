@@ -36,6 +36,14 @@ export const links: LinksFunction = () => {
   ]
 }
 
+export const meta: MetaFunction = () => ({
+  charset: "utf-8",
+  title: "Game of Nodes",
+  description:
+    "Game of Nodes provides the most robust and secure validators for cryptocurrency networks like Klever and Presearch. We build the infrastructure needed for reliable and trustworthy web3 applications for our customers.",
+  viewport: "width=device-width,initial-scale=1",
+})
+
 const navLinks = [
   {
     link: "/nodes",
@@ -47,14 +55,6 @@ const navLinks = [
   },
   { link: "/guides", label: "Guides" },
 ]
-
-export const meta: MetaFunction = () => ({
-  charset: "utf-8",
-  title: "Game of Nodes",
-  description:
-    "Game of Nodes provides the most robust and secure validators for cryptocurrency networks like Klever and Presearch. We build the infrastructure needed for reliable and trustworthy web3 applications for our customers.",
-  viewport: "width=device-width,initial-scale=1",
-})
 
 export default function App() {
   return (
