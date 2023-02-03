@@ -141,6 +141,7 @@ export const KleverNodeCard = (data: KleverData) => {
       {layout.map((item: LayoutData) => {
         return (
           <CardGroupLayout
+            key={item.text}
             text={item.text}
             url={item.url}
             value={item.value}
