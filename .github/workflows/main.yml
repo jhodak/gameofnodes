@@ -42,7 +42,7 @@ jobs:
           password: ${{ secrets.PASSWORD }}
           port: ${{ secrets.PORT }}
           script: |
-            cd /var/www/gameofnodes/ # we move into our app's folder
+            cd ${{secrets.FILEPATH}} # we move into our app's folder
             git pull # we pull any changes from git
             pnpm prune # we remove any unused dependencies
             pnpm install # we install any missing dependencies
