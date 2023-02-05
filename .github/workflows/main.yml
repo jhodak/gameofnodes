@@ -35,17 +35,11 @@ jobs:
     if: github.ref == 'refs/heads/main' # we tell Github to only execute this step if we're on our master branch (so we don't put unfinished branches in production)
     steps:
       - name: Deploying to web server
-        uses: appleboy/ssh-action@master # An action made to control Linux servers
+        uses: garygrossgarten/github-action-ssh@release
         with: # We set all our secrets here for the action, these won't be shown in the action logs
+          command: ${{ secrets.RUN }}
           host: ${{ secrets.HOST }}
           username: ${{ secrets.USERNAME }}
           password: ${{ secrets.PASSWORD }}
           port: ${{ secrets.PORT }}
-          script: |
-            cd ${{secrets.FILEPATH}} # we move into our app's folder
-            ./run.sh # script for running all the commands we want in order
-            #git pull # we pull any changes from git
-            #pnpm stop # stop all instances
-            #pnpm prune # clean
-            #pnpm install --frozen-lockfile # install any new packages
-            #pnpm start # runs a build and restarts pm2
+          
