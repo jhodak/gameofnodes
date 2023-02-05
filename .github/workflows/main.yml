@@ -43,8 +43,9 @@ jobs:
           port: ${{ secrets.PORT }}
           script: |
             cd ${{secrets.FILEPATH}} # we move into our app's folder
+            source ${{secrets.BASHRC}} # make sure we are getting bashrc paths
             git pull # we pull any changes from git
-            ${{ secrets.PNPMHOME}} stop # stop all instances
-            ${{ secrets.PNPMHOME}} prune # clean
-            ${{ secrets.PNPMHOME}} install # install any new packages
-            ${{ secrets.PNPMHOME}} start # runs a build and restarts pm2
+            pnpm stop # stop all instances
+            pnpm prune # clean
+            pnpm install # install any new packages
+            pnpm start # runs a build and restarts pm2
