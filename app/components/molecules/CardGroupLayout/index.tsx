@@ -26,11 +26,11 @@ export const CardGroupLayout = (data: LayoutData) => {
       <Text className="title">{data.text}</Text>
       {data.url ? (
         <HyperLink className="text" href={data.url} color="yellow">
-          {data.value}
+          {typeof data.value === "string" ? data.value : data.value.toFixed(2)}
         </HyperLink>
       ) : (
         <Text className="text" color={data.color || undefined}>
-          {data.value}
+          {typeof data.value === "string" ? data.value : data.value.toFixed(2)}
         </Text>
       )}
     </Group>
