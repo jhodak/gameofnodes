@@ -22,9 +22,9 @@ jobs:
         name: Install pnpm
         id: pnpm-install
         with:
-          version: 7
+          version: 7.26.3
           run_install: false
-      - run: pnpm install # installs your dependencies
+      - run: pnpm install --frozen-lockfile # installs your dependencies
       - run: pnpm run build # builds your app
         env:
           CI: true # shows terminal output!
@@ -45,7 +45,7 @@ jobs:
             cd ${{secrets.FILEPATH}} # we move into our app's folder
             source ${{secrets.BASHRC}} # make sure we are getting bashrc paths
             git pull # we pull any changes from git
-            pnpm stop # stop all instances
-            pnpm prune # clean
-            pnpm install # install any new packages
-            pnpm start # runs a build and restarts pm2
+            pnpm -c stop # stop all instances
+            pnpm -c prune # clean
+            pnpm -c install --frozen-lockfile # install any new packages
+            pnpm -c start # runs a build and restarts pm2
