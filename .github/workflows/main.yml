@@ -44,6 +44,8 @@ jobs:
           script: |
             cd ${{secrets.FILEPATH}} # we move into our app's folder
             git pull # we pull any changes from git
+            export PNPM_HOME=${{ secrets.PNPMHOME}}
+            export PATH="$PNPM_HOME:$PATH"
             pnpm prune # we remove any unused dependencies
             pnpm install # we install any missing dependencies
             pnpm stop # stops old pm2 processes
