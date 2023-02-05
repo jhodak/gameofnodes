@@ -46,6 +46,9 @@ jobs:
             git pull # we pull any changes from git
             export PNPM_HOME=${{ secrets.PNPMHOME}}
             export PATH="$PNPM_HOME:$PATH"
+            pnpm -v
+            node -v
+            which pnpm
             pnpm prune # we remove any unused dependencies
             pnpm install # we install any missing dependencies
             pnpm stop # stops old pm2 processes
