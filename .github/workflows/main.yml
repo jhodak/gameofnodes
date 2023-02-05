@@ -44,7 +44,7 @@ jobs:
           script: |
             cd ${{secrets.FILEPATH}} # we move into our app's folder
             git pull # we pull any changes from git
-            pnpm -c stop # stop all instances
+            pnpm stop # stop all instances
             pnpm prune # clean
             pnpm install --frozen-lockfile # install any new packages
-            pnpm -c start # runs a build and restarts pm2
+            pnpm start # runs a build and restarts pm2
