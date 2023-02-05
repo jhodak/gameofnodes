@@ -46,6 +46,6 @@ jobs:
             source ${{secrets.BASHRC}} # make sure we are getting bashrc paths
             git pull # we pull any changes from git
             pnpm -c stop # stop all instances
-            pnpm -c prune # clean
-            pnpm -c install --frozen-lockfile # install any new packages
+            pnpm prune # clean
+            pnpm install --frozen-lockfile # install any new packages
             pnpm -c start # runs a build and restarts pm2
