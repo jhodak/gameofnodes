@@ -1,0 +1,11 @@
+.footer {
+  margin-top: 2rem;
+  border-top: 2px solid var(--mantine-color-yellow-5);
+}
+
+footer > div {
+  height: 58px;
+  margin-left: 16px;
+  margin-right: 16px;
+  box-sizing: border-box;
+}

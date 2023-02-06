@@ -1,0 +1,5 @@
+main {
+  min-height: calc(
+    100vh - 8rem - 120px
+  ); /* 6rem margin from header 2rem margin from footer 60px each for header and footer heights */
+}
