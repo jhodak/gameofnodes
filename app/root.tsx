@@ -64,17 +64,17 @@ const navLinks = [
 
 export default function App() {
   return (
-    <MantineProvider
-      theme={theme}
-      withCSSVariables
-      withGlobalStyles
-      withNormalizeCSS
-    >
-      <html lang="en">
+    <html lang="en">
+      <MantineProvider
+        theme={theme}
+        withCSSVariables
+        withGlobalStyles
+        withNormalizeCSS
+      >
         <head>
-          <StylesPlaceholder />
           <Meta />
           <Links />
+          <StylesPlaceholder />
         </head>
         <body>
           <HeaderMenu links={navLinks} button={false} />
@@ -88,7 +88,7 @@ export default function App() {
           </main>
           <FooterLayout />
         </body>
-      </html>
-    </MantineProvider>
+      </MantineProvider>
+    </html>
   )
 }
