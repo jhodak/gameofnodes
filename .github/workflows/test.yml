@@ -41,8 +41,8 @@ jobs:
             ${{ runner.os }}-pnpm-store-
 
       - name: Install dependencies
-        run: pnpm install 
-        run: pnpm run build # builds your app
+        run: |
+          pnpm install 
+          pnpm run build # builds your app
         env:
           CI: true # shows terminal output!
-          
