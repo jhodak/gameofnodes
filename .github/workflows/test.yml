@@ -26,7 +26,23 @@ jobs:
         with:
           version: 7.26.3
           run_install: false
-      - run: pnpm install --frozen-lockfile # installs your dependencies
-      - run: pnpm run build # builds your app
+      - name: Get pnpm store directory
+        id: pnpm-cache
+        shell: bash
+        run: |
+          echo "STORE_PATH=$(pnpm store path)" >> $GITHUB_OUTPUT
+
+      - uses: actions/cache@v3
+        name: Setup pnpm cache
+        with:
+          path: ${{ steps.pnpm-cache.outputs.STORE_PATH }}
+          key: ${{ runner.os }}-pnpm-store-${{ hashFiles('**/pnpm-lock.yaml') }}
+          restore-keys: |
+            ${{ runner.os }}-pnpm-store-
+
+      - name: Install dependencies
+        run: |
+          pnpm install 
+          pnpm run build # builds your app
         env:
           CI: true # shows terminal output!
