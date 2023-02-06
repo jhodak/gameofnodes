@@ -12,6 +12,8 @@ import HeaderMenu, { links as HeaderLinks } from "~/components/mantine/Header"
 import { StylesPlaceholder } from "@mantine/remix"
 import { theme } from "./theme"
 import type { LinksFunction } from "@remix-run/node" // or cloudflare/deno
+import Footer, { links as FooterLinks } from "./components/molecules/Footer"
+import styles from "~/styles/rootStyles.css"
 
 export const links: LinksFunction = () => {
   return [
@@ -33,6 +35,8 @@ export const links: LinksFunction = () => {
       color: "#ffcd00",
     },
     ...HeaderLinks(),
+    ...FooterLinks(),
+    { rel: "stylesheet", href: styles },
   ]
 }
 
@@ -80,6 +84,7 @@ export default function App() {
             <Scripts />
             <LiveReload />
           </main>
+          <Footer />
         </body>
       </html>
     </MantineProvider>
