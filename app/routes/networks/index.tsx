@@ -8,7 +8,10 @@ import styles from "~/styles/networksStyles.css"
 import { getCoinGeckoData } from "~/models/coingecko.server"
 import { cache } from "~/utils/db.server"
 import { useEffect, useState } from "react"
-import { CardGroupLayout } from "~/components/molecules/CardGroupLayout"
+import {
+  CardGroupLayout,
+  links as cardGroupLinks,
+} from "~/components/molecules/CardGroupLayout"
 
 export const meta: MetaFunction = () => {
   return {
@@ -17,7 +20,7 @@ export const meta: MetaFunction = () => {
 }
 
 export const links = () => {
-  return [{ rel: "stylesheet", href: styles }]
+  return [...cardGroupLinks(), { rel: "stylesheet", href: styles }]
 }
 
 export const loader: LoaderFunction = async () => {
@@ -122,7 +125,9 @@ export default function NetworksPage() {
                 </HyperLink>
 
                 <div>
-                  <Text>{item.text}</Text>
+                  <Text component="p" className="description">
+                    {item.text}
+                  </Text>
                 </div>
                 <CardGroupLayout
                   text="Value"
