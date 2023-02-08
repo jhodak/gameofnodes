@@ -1,5 +1,6 @@
-.NetworkPage img {
-  width: 64px;
+.NetworkPage .card img {
+  margin-right: 0.5rem;
+  width: 32px;
 }
 
 .NetworkPage .card {
