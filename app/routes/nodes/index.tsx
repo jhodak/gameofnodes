@@ -38,9 +38,7 @@ export const loader: LoaderFunction = async () => {
   let presearchData: PresearchListType | undefined
   if (cache.has("presearch")) {
     presearchData = await cache.get("presearch")
-    console.log(cache.get("presearch"))
   } else {
-    console.log("getting presearch data")
     presearchData = await getPresearch()
     cache.set("presearch", presearchData, 60 * 20)
   }
@@ -56,12 +54,12 @@ type loaderDataType = {
 
 export default function NodesPage() {
   let loaderData: loaderDataType = useLoaderData()
+
+  // set data into state usable by the page
   const [data, setData] = useState(loaderData)
-  const [presearch, setPresearch] = useState<PresearchListType>(
-    Object.values(loaderData.presearch.nodes)
-  )
   const fetcher = useFetcher()
 
+  // every interval goes and grabs potentially new data
   useEffect(() => {
     const interval = setInterval(() => {
       if (document.visibilityState === "visible") {
@@ -71,10 +69,10 @@ export default function NodesPage() {
     return () => clearInterval(interval)
   }, [])
 
+  // updates the state data when it changes to re-render page with new data
   useEffect(() => {
     if (fetcher.data) {
       setData(fetcher.data)
-      setPresearch(Object.values(data.presearch.nodes))
     }
   }, [fetcher.data])
 
@@ -116,14 +114,15 @@ export default function NodesPage() {
           })}
         </Grid>
       )}
-      {data.presearch && (
-        <Title order={2} align="center">
-          Presearch Nodes
-        </Title>
-      )}
-      {presearch[0].meta !== undefined && (
+      {data.presearch &&
+        Object.values(loaderData.presearch.nodes) !== undefined && (
+          <Title order={2} align="center">
+            Presearch Nodes
+          </Title>
+        )}
+      {Object.values(loaderData.presearch.nodes) !== undefined && (
         <Grid justify="center" grow>
-          {presearch.map((item) => {
+          {Object.values(loaderData.presearch.nodes).map((item) => {
             const { meta, status, period } = item
             return (
               <Grid.Col md={4} sm={6} xs={12} key={meta.description}>

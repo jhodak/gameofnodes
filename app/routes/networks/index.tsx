@@ -8,7 +8,10 @@ import styles from "~/styles/networksStyles.css"
 import { getCoinGeckoData } from "~/models/coingecko.server"
 import { cache } from "~/utils/db.server"
 import { useEffect, useState } from "react"
-import { CardGroupLayout } from "~/components/molecules/CardGroupLayout"
+import {
+  CardGroupLayout,
+  links as cardGroupLinks,
+} from "~/components/molecules/CardGroupLayout"
 
 export const meta: MetaFunction = () => {
   return {
@@ -17,7 +20,7 @@ export const meta: MetaFunction = () => {
 }
 
 export const links = () => {
-  return [{ rel: "stylesheet", href: styles }]
+  return [...cardGroupLinks(), { rel: "stylesheet", href: styles }]
 }
 
 export const loader: LoaderFunction = async () => {
@@ -44,10 +47,14 @@ type loaderDataType = {
 }
 
 export default function NetworksPage() {
+  // load initial data from initial page load
   let loaderData: loaderDataType = useLoaderData()
+
+  // set data into state usable by the page
   const [data, setData] = useState(loaderData)
   const fetcher = useFetcher()
 
+  // every interval goes and grabs potentially new data
   useEffect(() => {
     const interval = setInterval(() => {
       if (document.visibilityState === "visible") {
@@ -57,6 +64,7 @@ export default function NetworksPage() {
     return () => clearInterval(interval)
   }, [])
 
+  // updates the state data when it changes to re-render page with new data
   useEffect(() => {
     if (fetcher.data) {
       setData(fetcher.data)
@@ -122,7 +130,9 @@ export default function NetworksPage() {
                 </HyperLink>
 
                 <div>
-                  <Text>{item.text}</Text>
+                  <Text component="p" className="description">
+                    {item.text}
+                  </Text>
                 </div>
                 <CardGroupLayout
                   text="Value"
