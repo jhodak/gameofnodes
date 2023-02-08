@@ -47,10 +47,14 @@ type loaderDataType = {
 }
 
 export default function NetworksPage() {
+  // load initial data from initial page load
   let loaderData: loaderDataType = useLoaderData()
+
+  // set data into state usable by the page
   const [data, setData] = useState(loaderData)
   const fetcher = useFetcher()
 
+  // every interval goes and grabs potentially new data
   useEffect(() => {
     const interval = setInterval(() => {
       if (document.visibilityState === "visible") {
@@ -60,6 +64,7 @@ export default function NetworksPage() {
     return () => clearInterval(interval)
   }, [])
 
+  // updates the state data when it changes to re-render page with new data
   useEffect(() => {
     if (fetcher.data) {
       setData(fetcher.data)
