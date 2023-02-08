@@ -27,6 +27,11 @@ export const nodeList = [
   // { name: "PreSearch Home", ip: "192.168.0.15:9090" },
 ]
 
+export const coinGeckoList = {
+  coins: ["klever", "presearch"],
+  currency: "USD",
+}
+
 export const determineColorPercent = (num: number) => {
   if (num > 75) {
     return "red"
