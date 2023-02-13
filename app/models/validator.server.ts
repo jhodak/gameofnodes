@@ -4,16 +4,26 @@ export async function getKlever() {
   let kleverData: any = []
   await Promise.all(
     nodeList.map(async (item) => {
-      let res = await fetch(item.ip)
-      if (!res || res.status !== 200) {
-        throw new Error(res.statusText)
-      } else {
-        let dataInner = await res.json()
+      try {
+        let res = await fetch(item.ip)
+        if (!res || res.status !== 200) {
+          throw new Error(res.statusText)
+        } else {
+          let dataInner = await res.json()
+          kleverData.push({
+            data: dataInner.data,
+            name: item.name,
+            chain: item.chain,
+          })
+        }
+      } catch (e) {
         kleverData.push({
-          data: dataInner.data,
+          status: "Error",
+          message: "Unable to access the node",
           name: item.name,
           chain: item.chain,
         })
+        console.log(e)
       }
     })
   )
