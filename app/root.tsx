@@ -44,9 +44,6 @@ export const links: LinksFunction = () => {
 
 export const meta: MetaFunction = () => ({
   charset: "utf-8",
-  title: "Game of Nodes",
-  description:
-    "Game of Nodes provides the most robust and secure validators for cryptocurrency networks like Klever and Presearch. We build the infrastructure needed for reliable and trustworthy web3 applications for our customers.",
   viewport: "width=device-width,initial-scale=1",
 })
 
@@ -64,17 +61,11 @@ const navLinks = [
 
 export default function App() {
   return (
-    <html lang="en">
-      <MantineProvider
-        theme={theme}
-        withCSSVariables
-        withGlobalStyles
-        withNormalizeCSS
-      >
+    <MantineProvider theme={theme} withGlobalStyles withNormalizeCSS>
+      <html lang="en">
         <head>
           <Meta />
           <Links />
-          <StylesPlaceholder />
         </head>
         <body>
           <HeaderMenu links={navLinks} button={false} />
@@ -88,7 +79,7 @@ export default function App() {
           </main>
           <FooterLayout />
         </body>
-      </MantineProvider>
-    </html>
+      </html>
+    </MantineProvider>
   )
 }

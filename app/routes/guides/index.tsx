@@ -18,7 +18,9 @@ import {
 
 export const meta: MetaFunction = () => {
   return {
-    title: "Networks - Game of Nodes",
+    title: "Node runner guides - Game of Nodes",
+    description:
+      "Learn how to set up your own cryptocurrency validator on Presearch & Klever networks. Get step-by-step guides and expert tips to ensure a smooth setup process.",
   }
 }
 
@@ -150,7 +152,7 @@ export default function GuidesPage() {
                     noWrap
                     spacing="xs"
                   >
-                    <img src={item.image} />
+                    <img src={item.image} alt={`${item.name} Logo`} />
                     <Title order={2}>{item.name}</Title>
                   </Group>
                 </HyperLink>

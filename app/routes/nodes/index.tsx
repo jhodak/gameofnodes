@@ -22,6 +22,8 @@ import styles from "~/styles/nodesStyles.css"
 export const meta: MetaFunction = () => {
   return {
     title: "Validator Status - Game of Nodes",
+    description:
+      "Up-to-date status of Game of Nodes cryptocurrency nodes on Klever & Presearch networks. Monitor performance, resolve issues & maximize rewards.",
   }
 }
 

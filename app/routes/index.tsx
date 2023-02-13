@@ -1,6 +1,14 @@
-import type { LinksFunction } from "@remix-run/node"
+import type { LinksFunction, MetaFunction } from "@remix-run/node"
 import { IntroText } from "~/components/molecules/IntroText"
 import { pageDataType } from "~/types"
+
+export const meta: MetaFunction = () => {
+  return {
+    title: "Game of Nodes",
+    description:
+      "Game of Nodes provides the most robust and secure validators for cryptocurrency networks like Klever and Presearch. We build the infrastructure needed for reliable and trustworthy web3 applications for our customers.",
+  }
+}
 
 export const links: LinksFunction = () => {
   return [
