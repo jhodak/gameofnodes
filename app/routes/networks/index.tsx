@@ -16,6 +16,8 @@ import {
 export const meta: MetaFunction = () => {
   return {
     title: "Networks - Game of Nodes",
+    description:
+      "Get the latest on Presearch & Klever crypto networks. Learn about the benefits of running nodes, stay updated on developments & join the crypto community.",
   }
 }
 
@@ -124,7 +126,7 @@ export default function NetworksPage() {
                     noWrap
                     spacing="xs"
                   >
-                    <img src={item.image} />
+                    <img src={item.image} alt={`${item.name} Logo`} />
                     <Title order={2}>{item.name}</Title>
                   </Group>
                 </HyperLink>

@@ -89,12 +89,19 @@ export default function HeaderMenu({ links }: HeaderMenuProps) {
                 src="/crown.svg"
                 width={32}
                 style={{ marginRight: "12px" }}
+                alt="Game of Nodes Logo"
               />
               {"Game of Nodes"}
             </>
           </HyperLink>
         </Group>
-        <Burger opened={opened} onClick={toggle} className="burger" size="sm" />
+        <Burger
+          opened={opened}
+          onClick={toggle}
+          className="burger"
+          size="sm"
+          title={`Menu Toggle : Click to open/close`}
+        />
         <Group spacing={16} className="links">
           {items}
         </Group>
