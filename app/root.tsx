@@ -66,6 +66,7 @@ export default function App() {
         <head>
           <Meta />
           <Links />
+          <StylesPlaceholder />
         </head>
         <body>
           <HeaderMenu links={navLinks} button={false} />
