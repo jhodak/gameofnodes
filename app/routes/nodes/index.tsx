@@ -94,7 +94,7 @@ export default function NodesPage() {
       {data.klever && (
         <Grid justify="center" grow>
           {data.klever.map((item: KleverListData) => {
-            if (item.chain === "Klever") {
+            if (item.chain === "Klever" && item.data) {
               return (
                 <Grid.Col
                   md={4}
