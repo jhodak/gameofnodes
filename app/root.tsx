@@ -61,7 +61,12 @@ const navLinks = [
 
 export default function App() {
   return (
-    <MantineProvider theme={theme} withGlobalStyles withNormalizeCSS>
+    <MantineProvider
+      theme={theme}
+      withGlobalStyles
+      withCSSVariables
+      withNormalizeCSS
+    >
       <html lang="en">
         <head>
           <Meta />
