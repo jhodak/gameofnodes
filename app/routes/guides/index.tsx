@@ -77,14 +77,14 @@ export default function GuidesPage() {
       },
       guides: [
         {
-          text: "Official Documentation:",
-          value: "https://docs.klever.finance/",
+          text: "Documentation:",
+          value: "Klever",
           url: "https://docs.klever.finance/klever-blockchain-node-operations/how-to-run-a-node",
           color: "yellow",
         },
         {
           text: "Complete Guide:",
-          value: "https://www.thekuberoom.com/",
+          value: "KubeRoom",
           url: "https://www.thekuberoom.com/node-setup/",
           color: "yellow",
         },
@@ -104,8 +104,8 @@ export default function GuidesPage() {
       },
       guides: [
         {
-          text: "Official Documentation:",
-          value: "https://docs.presearch.io/",
+          text: "Documentation:",
+          value: "Presearch",
           url: "https://docs.presearch.io/nodes/setup",
           color: "yellow",
         },
@@ -128,7 +128,7 @@ export default function GuidesPage() {
               color: "yellow",
             },
             {
-              text: "Minimum Node Requirement :",
+              text: "Node Requirement :",
               value: `${item.stats.tokenRequirement.toLocaleString()} ${item.stats.tokenSymbol.toUpperCase()}`,
             },
             {
