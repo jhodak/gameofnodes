@@ -5,7 +5,7 @@ import { HyperLink } from "~/components/atoms/HyperLink"
 import { IntroText } from "~/components/molecules/IntroText"
 import { pageDataType } from "~/types"
 import styles from "~/styles/networksStyles.css"
-import { getCoinGeckoData } from "~/models/coingecko.server"
+import { getCoinCapData } from "~/models/coincap.server"
 import { cache } from "~/utils/db.server"
 import { useEffect, useState } from "react"
 import {
@@ -26,27 +26,30 @@ export const links = () => {
 }
 
 export const loader: LoaderFunction = async () => {
-  let coinGeckoData: any | undefined
-  if (cache.has("coinGeckoData")) {
-    coinGeckoData = await cache.get("coinGeckoData")
+  let coinCapData: any | undefined
+  if (cache.has("coinCapData")) {
+    coinCapData = await cache.get("coinCapData")
   } else {
-    coinGeckoData = await getCoinGeckoData()
-    cache.set("coinGeckoData", coinGeckoData, 60 * 1)
+    coinCapData = await getCoinCapData()
+    cache.set("coinCapData", coinCapData, 10 * 1)
   }
 
-  let data = coinGeckoData
+  let data = coinCapData
   return data
 }
 
 type chains = "klever" | "presearch"
 
 type loaderDataType = {
-  [key in chains]: {
-    usd: number
-    usd_market_cap: number
-    usd_24h_change: number
-  }
-}
+  id: string
+  rank: string
+  symbol: string
+  name: string
+  supply: string
+  marketCapUsd: string
+  priceUsd: string
+  changePercent24Hr: string
+}[]
 
 export default function NetworksPage() {
   // load initial data from initial page load
@@ -62,7 +65,7 @@ export default function NetworksPage() {
       if (document.visibilityState === "visible") {
         fetcher.load("/networks?index")
       }
-    }, 60 * 1000)
+    }, 10 * 1000)
     return () => clearInterval(interval)
   }, [])
 
@@ -86,9 +89,12 @@ export default function NetworksPage() {
     url: string
     text: string
     price: number | string // sometimes we manipulate it with toFixed() which converts to a string
-    marketCap: number
-    dayChange: number
+    marketCap: number | string
+    dayChange: number | string
   }[]
+
+  const klever = data[0]
+  const presearch = data[1]
 
   const networkData: networkDataType = [
     {
@@ -96,18 +102,18 @@ export default function NetworksPage() {
       image: "/logos/klever.svg",
       url: "https://klever.finance/",
       text: `Klever is a cutting-edge blockchain platform that is designed to meet the needs of developers and businesses. Our platform is built on a robust and secure infrastructure that is designed to support the development and deployment of decentralized applications and smart contracts.`,
-      price: data.klever.usd.toFixed(4),
-      marketCap: Math.round(data.klever.usd_market_cap),
-      dayChange: data.klever.usd_24h_change,
+      price: parseFloat(klever.priceUsd).toFixed(4),
+      marketCap: Math.round(parseFloat(klever.marketCapUsd)),
+      dayChange: parseFloat(klever.changePercent24Hr).toFixed(2),
     },
     {
       name: "Presearch",
       image: "/logos/presearch.svg",
       url: "https://presearch.io/",
       text: `Presearch is a community-powered, decentralized search engine that provides better results while protecting your privacy and rewarding you when you search. Presearch is building a complete ecosystem to provide the world with a search engine that is powered by the community, for the community.`,
-      price: data.presearch.usd.toFixed(3),
-      marketCap: Math.round(data.presearch.usd_market_cap),
-      dayChange: data.presearch.usd_24h_change,
+      price: parseFloat(presearch.priceUsd).toFixed(3),
+      marketCap: Math.round(parseFloat(presearch.marketCapUsd)),
+      dayChange: parseFloat(presearch.changePercent24Hr).toFixed(2),
     },
   ]
 
@@ -144,7 +150,7 @@ export default function NetworksPage() {
                 <CardGroupLayout
                   text="24hr Change:"
                   color={item.dayChange > 0 ? "green" : "red"}
-                  value={`${item.dayChange.toFixed(2)} %`}
+                  value={`${item.dayChange} %`}
                 />
                 <CardGroupLayout
                   text="Market Cap:"
@@ -152,8 +158,8 @@ export default function NetworksPage() {
                 />
                 <CardGroupLayout
                   text="Powered by:"
-                  value="CoinGecko"
-                  url="https://www.coingecko.com/"
+                  value="CoinCap"
+                  url="https://www.coincap.io/"
                 />
               </Card>
             </Grid.Col>

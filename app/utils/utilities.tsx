@@ -27,7 +27,7 @@ export const nodeList = [
   // { name: "PreSearch Home", ip: "192.168.0.15:9090" },
 ]
 
-export const coinGeckoList = {
+export const coinList = {
   coins: ["klever", "presearch"],
   currency: "USD",
 }
