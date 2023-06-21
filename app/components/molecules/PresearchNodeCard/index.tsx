@@ -111,7 +111,7 @@ export const PresearchNodeCard = (data: PresearchItemType) => {
     { text: "Server Pool :", value: data.meta.gateway_pool },
     {
       text: "Uptime :",
-      value: data.period.uptime_percentage,
+      value: +data.period.uptime_percentage.toPrecision(1),
       color: determineColorPercentUp(data.period.uptime_percentage),
     },
     { text: "Successful Requests:", value: data.period.successful_requests },
