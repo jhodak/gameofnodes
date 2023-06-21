@@ -30,7 +30,7 @@ export const CardGroupLayout = (data: LayoutData) => {
         </HyperLink>
       ) : (
         <Text className="text" color={data.color || undefined}>
-          {typeof data.value === "string" ? data.value : data.value.toFixed(0)}
+          {data.value}
         </Text>
       )}
     </Group>
